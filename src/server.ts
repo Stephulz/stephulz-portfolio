@@ -38,6 +38,11 @@ app.get(
 /**
  * Handle all other requests by rendering the Angular application.
  */
+/**
+ * Handle all other requests by rendering the Angular application.
+ * Cache at CDN level for 1 day, serve stale for 7 days while revalidating.
+ * This minimizes function invocations for repeat visitors.
+ */
 app.get('**', (req, res, next) => {
   const { protocol, originalUrl, baseUrl, headers } = req;
 
@@ -49,7 +54,13 @@ app.get('**', (req, res, next) => {
       publicPath: browserDistFolder,
       providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
     })
-    .then((html) => res.send(html))
+    .then((html) => {
+      res.set(
+        'Cache-Control',
+        'public, s-maxage=86400, stale-while-revalidate=604800',
+      );
+      res.send(html);
+    })
     .catch((err) => next(err));
 });
 

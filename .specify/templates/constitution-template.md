@@ -1,50 +1,60 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# Stephulz Portfolio — Angular Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Standalone Components (No NgModules)
+Every component, directive, and pipe MUST be declared as standalone (`standalone: true` — the default in Angular 22). Do NOT create or import NgModules. Dependencies are imported directly via the `imports` array in the `@Component` decorator.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Signals-Only Reactivity
+Use Angular Signals (`signal()`, `computed()`, `effect()`) for all state management and reactive data flow. Do NOT use RxJS `BehaviorSubject` or manual change detection for component state. RxJS is reserved for external streams (HTTP, router events, form valueChanges).
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Modern Control Flow
+Use the new template syntax exclusively: `@if`, `@for`, `@switch`, `@defer`. Do NOT use structural directives (`*ngIf`, `*ngFor`, `*ngSwitch`). Always provide a `track` expression in `@for`.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Functional Guards & Resolvers
+All route guards and resolvers MUST be implemented as plain functions using the `canActivate`, `canMatch`, `canDeactivate`, `resolve` APIs from `@angular/router`. Do NOT use class-based guards.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Strict TypeScript & Angular Compiler
+The project enforces `strict: true` in TypeScript, plus `strictTemplates`, `strictInjectionParameters`, and `strictInputAccessModifiers` in Angular compiler options. Every template expression must be type-safe. Avoid `any` except in rare, justified cases.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Technology Stack
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+| Layer | Choice |
+|---|---|
+| **Framework** | Angular 22 (standalone, SSR-ready) |
+| **Language** | TypeScript 6+ (strict mode) |
+| **Styling** | SCSS (component-scoped via `styleUrl`) |
+| **Testing** | Vitest + jsdom (Angular Testing Library preferred) |
+| **Build** | Angular CLI with ESBuild/Vite |
+| **Server** | Angular SSR via Express + `@angular/ssr` |
+| **Forms** | Reactive Forms (`FormGroup`, `FormControl`, `Validators`) |
+| **Routing** | `provideRouter` with functional guards/resolvers |
+| **Reactivity** | Signals (`signal`, `computed`, `effect`) |
+| **RxJS** | Only for HTTP, router events, debounced input streams |
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Development Workflow
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### Component Structure
+```
+feature/
+├── feature.component.ts      # Standalone component
+├── feature.component.html    # Template with @if/@for/@defer
+├── feature.component.scss    # Scoped styles
+└── feature.component.spec.ts # Vitest unit test
+```
+
+### Testing Requirements
+- Every component, service, and guard MUST have a corresponding `.spec.ts` file.
+- Tests use Vitest with jsdom environment.
+- Prefer `provideRouter`, `provideHttpClientTesting` over manual injection.
+- Test signals by calling setters and asserting via `effect()` or computed values.
+
+### SSR & Hydration
+- Use `provideClientHydration(withEventReplay())` in app config.
+- Avoid direct `window`/`document` access; use `isPlatformBrowser` or `afterNextRender`.
+- Ensure routes and data are SSR-compatible (no browser-only APIs in constructors).
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+This constitution supersedes generic Angular tutorials or documentation. Amendments require a PR updating both this file and `.specify/memory/constitution.md`. Complexity must always be justified — prefer the simplest solution that satisfies the requirements.
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
-
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2026-06-23 | **Last Amended**: 2026-06-23

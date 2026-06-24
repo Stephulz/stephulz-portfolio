@@ -1,0 +1,13 @@
+<div class="lang-toggle" role="radiogroup" [attr.aria-label]="translation.t().language.switch">
+  @for (lang of languages; track lang.code) {
+    <button
+      class="lang-btn"
+      [class.active]="translation.currentLang() === lang.code"
+      (click)="translation.setLanguage(lang.code)"
+      [attr.aria-checked]="translation.currentLang() === lang.code"
+      role="radio"
+    >
+      {{ lang.label }}
+    </button>
+  }
+</div>

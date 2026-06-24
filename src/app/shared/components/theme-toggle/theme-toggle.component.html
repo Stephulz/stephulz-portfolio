@@ -1,0 +1,11 @@
+<button
+  class="theme-btn"
+  (click)="themeService.toggle()"
+  [attr.aria-label]="themeService.theme() === 'dark' ? translation.t().theme.light : translation.t().theme.dark"
+>
+  @if (themeService.theme() === 'dark') {
+    <ng-icon name="heroSun" size="24" />
+  } @else {
+    <ng-icon name="heroMoon" size="24" />
+  }
+</button>

@@ -1,0 +1,28 @@
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-logo">Stefan Sanches</span>
+      <span class="footer-tagline">{{ translation.t().hero.subtitle }}</span>
+    </div>
+
+    <div class="footer-links">
+      <a
+        href="https://www.linkedin.com/in/stefan-s-aa7654a5/?locale=en_US"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="footer-link"
+        aria-label="LinkedIn"
+      >
+        <ng-icon name="bootstrapLinkedin" size="24" />
+        LinkedIn
+      </a>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">
+        &copy; {{ currentYear }} Stefan S. {{ translation.t().footer.copyright }}
+      </p>
+      <p class="footer-tech">{{ translation.t().footer.builtWith }}</p>
+    </div>
+  </div>
+</footer>
