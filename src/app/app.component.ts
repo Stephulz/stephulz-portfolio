@@ -2,6 +2,7 @@ import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { bootstrapLinkedin } from '@ng-icons/bootstrap-icons';
+import { simpleGooglemaps } from '@ng-icons/simple-icons';
 import { inject as injectAnalytics } from '@vercel/analytics';
 import { injectSpeedInsights } from '@vercel/speed-insights';
 import { HeaderComponent } from './shared/components/header/header.component';
@@ -13,7 +14,7 @@ import { TranslationService } from './core/services/translation.service';
   selector: 'app-root',
   standalone: true,
   imports: [HeaderComponent, FooterComponent, TimelineComponent, NgIcon],
-  providers: [provideIcons({ bootstrapLinkedin })],
+  providers: [provideIcons({ bootstrapLinkedin, simpleGooglemaps })],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -26,5 +27,9 @@ export class AppComponent implements OnInit {
       injectAnalytics();
       injectSpeedInsights();
     }
+  }
+
+  navigateToExternalLink(url: string): void {
+    window.open(url, '_blank');
   }
 }

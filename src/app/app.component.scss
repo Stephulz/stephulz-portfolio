@@ -119,6 +119,21 @@
   background: var(--accent-bg);
   border: 1px solid var(--accent-border);
   transition: all var(--theme-transition);
+
+  &.pending {
+    color: var(--accent-pending);
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  &.completed {
+    &:hover {
+      opacity: 0.9;
+      transform: translateY(-3px);
+      cursor: pointer;
+    }
+  }
 }
 
 .hero-actions {

@@ -2,7 +2,7 @@
 
 <main class="main-content">
   <!-- Hero Section -->
-  <section class="hero">
+  <section id="home" class="hero">
     <div class="hero-bg">
       <div class="hero-gradient"></div>
     </div>
@@ -15,14 +15,31 @@
         <p class="hero-description">{{ translation.t().hero.description }}</p>
 
         <div class="hero-location">
-          <span class="location-pin">📍</span>
+          <ng-icon name="simpleGooglemaps" size="20" />
           {{ translation.t().hero.location }}
         </div>
 
         <div class="hero-badges">
-          <span class="badge">AZ-900</span>
-          <span class="badge">DP-900</span>
-          <span class="badge"
+          <span
+            class="badge completed"
+            (click)="
+              navigateToExternalLink(
+                'https://learn.microsoft.com/users/stefandacostasanches-1424/credentials/56ac49a43ed03039'
+              )
+            "
+            >AZ-900</span
+          >
+          <span
+            class="badge completed"
+            (click)="
+              navigateToExternalLink(
+                'https://learn.microsoft.com/users/stefandacostasanches-1424/credentials/410d5c0f0e300243'
+              )
+            "
+          >
+            DP-900
+          </span>
+          <span class="badge pending"
             >AZ-104 ({{ translation.t().hero.studying }})</span
           >
         </div>
@@ -45,7 +62,6 @@
     </div>
   </section>
 
-  <!-- Timeline Section -->
   <app-timeline />
 </main>
 

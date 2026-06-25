@@ -1,7 +1,9 @@
 .footer {
   border-top: 1px solid var(--border-color);
   background: var(--surface-bg);
-  transition: background var(--theme-transition), border-color var(--theme-transition);
+  transition:
+    background var(--theme-transition),
+    border-color var(--theme-transition);
 }
 
 .footer-inner {
@@ -18,10 +20,16 @@
 }
 
 .footer-logo {
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--text-primary);
+  text-decoration: none;
+  letter-spacing: -0.02em;
   transition: color var(--theme-transition);
+
+  &:hover {
+    color: var(--accent);
+  }
 }
 
 .footer-tagline {
@@ -81,7 +89,15 @@
   }
 
   .footer-bottom {
-    flex-direction: column;
     gap: 4px;
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer-links {
+    justify-content: center;
   }
 }
