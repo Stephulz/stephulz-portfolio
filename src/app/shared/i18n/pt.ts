@@ -6,8 +6,9 @@ export const PT = {
     description:
       'Construindo aplicações escaláveis e de alta performance com Java, Angular e tecnologias em nuvem. Apaixonado por código limpo, arquitetura elegante e ótimas experiências de usuário.',
     studying: 'estudando',
-    cta: 'Veja Minha Trajetória Profissional',
+    viewExperience: 'Veja Minha Trajetória Profissional',
     location: 'São Paulo, Brasil',
+    backToTop: 'Voltar ao topo'
   },
   nav: {
     experience: 'Trajetória Profissional',

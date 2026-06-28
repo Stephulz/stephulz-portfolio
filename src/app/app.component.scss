@@ -141,6 +141,10 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
+
+  &.to-top {
+    margin-bottom: 48px;
+  }
 }
 
 .btn-primary,

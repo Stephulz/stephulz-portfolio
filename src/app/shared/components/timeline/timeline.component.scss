@@ -1,5 +1,6 @@
 .timeline-section {
   padding: 80px 24px;
+  padding-bottom: 48px;
   max-width: 800px;
   margin: 0 auto;
 }
@@ -70,7 +71,11 @@
 
 .timeline-card {
   flex: 1;
-  padding-bottom: 48px;
+  padding-bottom: 32px;
+
+  &.last {
+    padding-bottom: 0px;
+  }
 }
 
 .timeline-card-header {
@@ -120,7 +125,7 @@
 .tech-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 16px;
 }
 
 .tech-tag {
@@ -154,5 +159,9 @@
 
   .timeline-item {
     gap: 16px;
+  }
+
+  .tech-tags {
+    justify-content: center;
   }
 }

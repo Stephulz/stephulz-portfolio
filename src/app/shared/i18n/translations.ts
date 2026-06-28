@@ -9,8 +9,9 @@ export interface Translation {
     subtitle: string;
     description: string;
     studying: string;
-    cta: string;
+    viewExperience: string;
     location: string;
+    backToTop: string;
   };
   nav: {
     experience: string;

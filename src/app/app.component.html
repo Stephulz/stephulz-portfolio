@@ -20,42 +20,33 @@
         </div>
 
         <div class="hero-badges">
-          <span
-            class="badge completed"
-            (click)="
+          <span class="badge completed" (click)="
               navigateToExternalLink(
                 'https://learn.microsoft.com/users/stefandacostasanches-1424/credentials/56ac49a43ed03039'
               )
-            "
-            >AZ-900</span
-          >
-          <span
-            class="badge completed"
-            (click)="
+            ">AZ-900</span>
+          <span class="badge completed" (click)="
               navigateToExternalLink(
                 'https://learn.microsoft.com/users/stefandacostasanches-1424/credentials/410d5c0f0e300243'
               )
-            "
-          >
+            ">
             DP-900
           </span>
-          <span class="badge pending"
-            >AZ-104 ({{ translation.t().hero.studying }})</span
-          >
+          <span class="badge pending">AZ-104 ({{ translation.t().hero.studying }})</span>
         </div>
 
         <div class="hero-actions">
-          <a href="#experience" class="btn-primary">
-            {{ translation.t().hero.cta }}
-          </a>
-          <a
-            href="https://www.linkedin.com/in/stefan-s-aa7654a5/?locale=en_US"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn-secondary"
-          >
+          <a href="https://www.linkedin.com/in/stefan-s-aa7654a5/?locale=en_US" target="_blank"
+            rel="noopener noreferrer" class="btn-secondary">
             <ng-icon name="bootstrapLinkedin" size="24" />
             LinkedIn
+          </a>
+          <a href="#experience" class="btn-primary">
+            {{ translation.t().hero.viewExperience }}
+          </a>
+          <a href="https://www.github.com/stephulz" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+            <ng-icon name="bootstrapGithub" size="24" />
+            GitHub
           </a>
         </div>
       </div>
@@ -63,6 +54,14 @@
   </section>
 
   <app-timeline />
+
+  <div class="hero-actions to-top">
+    <a href="#home" class="btn-primary">
+      <ng-icon name="heroArrowUp" size="24" />
+      {{ translation.t().hero.backToTop }}
+    </a>
+  </div>
+
 </main>
 
 <app-footer />

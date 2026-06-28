@@ -1,60 +1,52 @@
-# Stephulz Portfolio — Angular Constitution
+# Angular 22 Project Constitution
 
 ## Core Principles
 
-### I. Standalone Components (No NgModules)
-Every component, directive, and pipe MUST be declared as standalone (`standalone: true` — the default in Angular 22). Do NOT create or import NgModules. Dependencies are imported directly via the `imports` array in the `@Component` decorator.
+### I. Strict TypeScript Enforcement
 
-### II. Signals-Only Reactivity
-Use Angular Signals (`signal()`, `computed()`, `effect()`) for all state management and reactive data flow. Do NOT use RxJS `BehaviorSubject` or manual change detection for component state. RxJS is reserved for external streams (HTTP, router events, form valueChanges).
+TypeScript is the foundational language for this project; strict typing requirements ensure type safety throughout all code:
 
-### III. Modern Control Flow
-Use the new template syntax exclusively: `@if`, `@for`, `@switch`, `@defer`. Do NOT use structural directives (`*ngIf`, `*ngFor`, `*ngSwitch`). Always provide a `track` expression in `@for`.
+* ALL files must use `strict` mode with maximum strictness settings enabled (`noImplicitAny`, `alwaysStrict`, `strictPropertyInitialization`, etc.)
+* Type annotations are mandatory on all function parameters, return values, and class properties. No implicit types allowed except in specific edge caseFs (e.g., arrays of primitives).
+* Use modern ECMAScript features from ES2022+ where applicable (e.g., array methods, optional chaining, nullish coalescing).
+* ESLint configuration enforces consistent coding standards with automatic fixes for common issues.
+* Type guards and narrowing must be used to validate runtime types before casting or accessing typed properties.
 
-### IV. Functional Guards & Resolvers
-All route guards and resolvers MUST be implemented as plain functions using the `canActivate`, `canMatch`, `canDeactivate`, `resolve` APIs from `@angular/router`. Do NOT use class-based guards.
+### II. Standalone Components Architecture
 
-### V. Strict TypeScript & Angular Compiler
-The project enforces `strict: true` in TypeScript, plus `strictTemplates`, `strictInjectionParameters`, and `strictInputAccessModifiers` in Angular compiler options. Every template expression must be type-safe. Avoid `any` except in rare, justified cases.
+All Angular components follow a standalone architecture to reduce bundle size and improve developer experience:
 
-## Technology Stack
+* EVERY component must be declared as standalone (`standalone: true`) by default; no module-based components allowed without explicit justification.
+* Components import only required providers directly; avoid shared NgModules unless absolutely necessary for complex scenarios.
+* Standalone components follow a consistent design pattern (e.g., Atomic Design): each component has a single, focused purpose and clear input/output contracts.
+* Component composition is achieved through content projection and input bindings rather than NgModule relationships.
 
-| Layer | Choice |
-|---|---|
-| **Framework** | Angular 22 (standalone, SSR-ready) |
-| **Language** | TypeScript 6+ (strict mode) |
-| **Styling** | SCSS (component-scoped via `styleUrl`) |
-| **Testing** | Vitest + jsdom (Angular Testing Library preferred) |
-| **Build** | Angular CLI with ESBuild/Vite |
-| **Server** | Angular SSR via Express + `@angular/ssr` |
-| **Forms** | Reactive Forms (`FormGroup`, `FormControl`, `Validators`) |
-| **Routing** | `provideRouter` with functional guards/resolvers |
-| **Reactivity** | Signals (`signal`, `computed`, `effect`) |
-| **RxJS** | Only for HTTP, router events, debounced input streams |
+### III. SCSS Styling System
 
-## Development Workflow
+Styling follows SCSS conventions to maintain consistency, scalability, and maintainability across the application:
 
-### Component Structure
-```
-feature/
-├── feature.component.ts      # Standalone component
-├── feature.component.html    # Template with @if/@for/@defer
-├── feature.component.scss    # Scoped styles
-└── feature.component.spec.ts # Vitest unit test
-```
+* ALL styling must be written in SCSS with proper nesting and variable inheritance; raw CSS files are not allowed for new styles.
+* Design tokens (CSS variables) define a unified color palette, typography scale, spacing system, and other core design principles; these tokens cannot be overridden without explicit review.
+* SCSS follows BEM-like naming conventions or the project's established naming pattern with consistent prefixes.
+* Styles are modularized into logical directories (`styles`, `components`, `utilities`) for better organization and reuse.
 
-### Testing Requirements
-- Every component, service, and guard MUST have a corresponding `.spec.ts` file.
-- Tests use Vitest with jsdom environment.
-- Prefer `provideRouter`, `provideHttpClientTesting` over manual injection.
-- Test signals by calling setters and asserting via `effect()` or computed values.
+### IV. 100% Accessibility (a11y) Compliance
 
-### SSR & Hydration
-- Use `provideClientHydration(withEventReplay())` in app config.
-- Avoid direct `window`/`document` access; use `isPlatformBrowser` or `afterNextRender`.
-- Ensure routes and data are SSR-compatible (no browser-only APIs in constructors).
+Accessibility is a non-negotiable requirement; every component, page, and interaction must be fully accessible to all users:
+
+* ALL interactive elements MUST include appropriate ARIA attributes (`aria-label`, `role`, `aria-expanded`, etc.) when native HTML semantics are insufficient.
+* Color contrast ratios between foreground and background must meet WCAG AA standards (4.5:1 for normal text, 3:1 for large text).
+* Every image MUST have descriptive alt text; decorative images use empty alt attributes (`alt=""`).
+* Keyboard navigation is mandatory; all interactive elements must be reachable via Tab key and activatable with Enter or Space.
+* Focus indicators are visible and clearly defined on all interactive elements; focus traps are tested in modals and dialogs.
+* Screen reader compatibility is verified using NVDA, VoiceOver, or JAWS; all dynamic content updates (e.g., form errors, notifications) must be announced programmatically (`aria-live` regions).
 
 ## Governance
-This constitution supersedes generic Angular tutorials or documentation. Amendments require a PR updating both this file and `.specify/templates/constitution-template.md`. Complexity must always be justified — prefer the simplest solution that satisfies the requirements.
 
-**Version**: 1.0.0 | **Ratified**: 2026-06-23 | **Last Amended**: 2026-06-23
+The Angular 22 Project Constitution supersedes all other development practices within this project:
+
+* All pull requests MUST include evidence of compliance with each principle through comments or linked documentation.
+* Any deviation from these principles requires documented justification and approval from the tech lead.
+* This constitution is automatically updated via `.specify/extensions.yml` hooks to ensure consistency across iterations.
+
+**Version**: 1.0.0 | **Ratified**: 2026-06-25 | **Last Amended**: 2026-06-25
