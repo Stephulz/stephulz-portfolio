@@ -1,59 +1,70 @@
-# StephulzPortfolio
+# Stephulz Portfolio
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.27.
+[![CI](https://github.com/Stephulz/stephulz-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/Stephulz/stephulz-portfolio/actions/workflows/ci.yml)
+[![Node](https://img.shields.io/badge/node-22-339933?logo=node.js&logoColor=white)](https://nodejs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+![Vercel](https://img.shields.io/badge/Vercel-deployed-000000?logo=vercel&logoColor=white)
 
-## Development server
+Personal portfolio built with **Angular 22**, **TypeScript 6**, **SCSS**, and
+**Vitest**. Deployed on **Vercel**.
 
-To start a local development server, run:
+## Stack
 
-```bash
-ng serve
-```
+| Layer | Tech |
+|---|---|
+| Framework | Angular 22 (standalone, SSR) |
+| Language | TypeScript 6 (strict mode) |
+| Styling | SCSS (component-scoped, CSS custom properties) |
+| Testing | Vitest + jsdom (100 tests across 9 files) |
+| Linting | Angular ESLint |
+| Hosting | Vercel (Hobby) |
+| CI | GitHub Actions |
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+## Commands
 
 ```bash
-ng build
-```
+# Serve locally
+npm start
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
+# Run tests (watch mode)
 ng test
+
+# Run tests (CI mode, single run)
+npm run test:ci
+
+# Run tests with coverage
+npm run test:coverage
+
+# Lint
+npm run lint
+
+# Production build
+npm run build
 ```
 
-## Running end-to-end tests
+## Project Structure
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
+```
+src/
+├── app/
+│   ├── core/
+│   │   ├── models/          # Data interfaces & constants
+│   │   └── services/        # ThemeService, TranslationService
+│   └── shared/
+│       ├── components/      # Header, Footer, Timeline, toggles
+│       └── i18n/            # English & Portuguese translations
+├── styles.scss              # Global theme variables
+└── test-setup.ts            # Vitest global mocks
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Constitution
 
-## Additional Resources
+This project follows a formal constitution defining four core principles:
+**Strict TypeScript**, **Standalone Components**, **SCSS Styling**, and
+**100% Test Coverage** via TDD (Red/Green).
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+See [`.specify/memory/constitution.md`](.specify/memory/constitution.md).
+
+## License
+
+MIT
