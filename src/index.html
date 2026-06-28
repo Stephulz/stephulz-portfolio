@@ -1,41 +1,45 @@
 <!doctype html>
 <html lang="en" data-theme="dark">
-  <head>
-    <meta charset="utf-8" />
-    <title>Stefan S. — Full Stack Software Engineer</title>
-    <base href="/" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Full Stack Software Engineer specializing in Java, Angular, React, and cloud technologies (AWS, GCP, Azure). AZ-900 & DP-900 certified."
-    />
-    <meta
-      name="keywords"
-      content="Full Stack Developer, Java, Angular, React, Spring Boot, AWS, GCP, Azure, Software Engineer, São Paulo"
-    />
-    <meta name="author" content="Stefan S." />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
-    <!-- Open Graph -->
-    <meta
-      property="og:title"
-      content="Stefan S. — Full Stack Software Engineer"
-    />
-    <meta
-      property="og:description"
-      content="Building scalable, high-performance applications with Java, Angular and cloud technologies."
-    />
-    <meta property="og:type" content="website" />
+<head>
+  <meta charset="utf-8" />
+  <title>Stefan S. — Full Stack Software Engineer</title>
+  <base href="/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+    content="Full Stack Software Engineer specializing in Java, Angular, React, and cloud technologies (AWS, GCP, Azure). AZ-900 & DP-900 certified." />
+  <meta name="keywords"
+    content="Full Stack Developer, Java, Angular, React, Spring Boot, AWS, GCP, Azure, Software Engineer, São Paulo" />
+  <meta name="author" content="Stefan S." />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
-    <!-- Preconnect + fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <app-root></app-root>
-  </body>
+  <!-- Open Graph -->
+  <meta property="og:title" content="Stefan S. — Full Stack Software Engineer" />
+  <meta property="og:description"
+    content="Building scalable, high-performance applications with Java, Angular and cloud technologies." />
+  <meta property="og:type" content="website" />
+
+  <!-- Pre-boot CSS (critical — ahead of fonts for immediate rendering) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" href="pre-boot.css" as="style" />
+  <link rel="stylesheet" href="pre-boot.css" />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    as="style" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <!-- ─── Pre-bootstrap loading spinner (visible before Angular boots) ─── -->
+  <div id="pre-boot-skeleton" role="status" aria-label="Loading">
+    <div class="pre-boot-spinner">
+      <div class="pre-boot-ring"></div>
+      <div class="pre-boot-ring pre-boot-ring--inner"></div>
+    </div>
+  </div>
+
+  <app-root></app-root>
+</body>
+
 </html>

@@ -5,6 +5,7 @@ const tseslint = require("typescript-eslint");
 const angular = require("angular-eslint");
 
 module.exports = defineConfig([
+  { ignores: ['coverage/', '.angular/'] },
   {
     files: ["**/*.ts"],
     extends: [
@@ -14,6 +15,11 @@ module.exports = defineConfig([
       angular.configs.tsRecommended,
     ],
     processor: angular.processInlineTemplates,
+    languageOptions: {
+      globals: {
+        jest: true,
+      },
+    },
     rules: {
       "@angular-eslint/directive-selector": [
         "error",
@@ -31,6 +37,25 @@ module.exports = defineConfig([
           style: "kebab-case",
         },
       ],
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+        },
+      ],
+    },
+  },
+  {
+    files: ["**/*.spec.ts"],
+    languageOptions: {
+      globals: {
+        jest: true,
+      },
+    },
+    rules: {
+      "@typescript-eslint/no-empty-function": "off",
+      "@typescript-eslint/no-non-null-assertion": "off",
     },
   },
   {

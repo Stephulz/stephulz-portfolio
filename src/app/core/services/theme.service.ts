@@ -11,6 +11,7 @@ export class ThemeService {
   private readonly storageKey = 'portfolio-theme';
 
   readonly theme = signal<Theme>('dark');
+  readonly loaded = signal(false);
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
@@ -31,6 +32,10 @@ export class ThemeService {
         localStorage.setItem(this.storageKey, current);
       });
     }
+
+    // Defer to the next macrotask so the loading overlay is visible
+    // for at least one paint cycle before content is revealed.
+    setTimeout(() => this.loaded.set(true), 500);
   }
 
   toggle(): void {

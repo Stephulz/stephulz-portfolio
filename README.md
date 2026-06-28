@@ -1,59 +1,91 @@
-# StephulzPortfolio
+# Stephulz Portfolio
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.27.
+[![CI](https://github.com/Stephulz/stephulz-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/Stephulz/stephulz-portfolio/actions/workflows/ci.yml)
+[![Node](https://img.shields.io/badge/node-22-339933?logo=node.js&logoColor=white)](https://nodejs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+![Vercel](https://img.shields.io/badge/Vercel-deployed-000000?logo=vercel&logoColor=white)
+![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
 
-## Development server
+Personal portfolio built with **Angular 22**, **TypeScript 6**, **SCSS**, and
+**Jest**. Deployed on **Vercel**.
 
-To start a local development server, run:
+## Stack
 
-```bash
-ng serve
-```
+| Layer | Tech |
+|---|---|
+| Framework | Angular 22 (standalone, SSR) |
+| Language | TypeScript 6 (strict mode) |
+| Styling | SCSS (component-scoped, CSS custom properties) |
+| Testing | Jest + jsdom (125 tests across 10 files, **100% coverage**) |
+| Linting | Angular ESLint |
+| Hosting | Vercel (Hobby) |
+| CI | GitHub Actions (lint, test, coverage, SAST, build) |
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+## Commands
 
 ```bash
-ng build
+# Serve locally (injects pre-boot skeleton automatically)
+npm start
+
+# Run tests (single run)
+npm test
+
+# Run tests (CI mode)
+npm run test:ci
+
+# Run tests with coverage
+npm run test:coverage
+
+# Lint
+npm run lint
+
+# Production build (injects pre-boot skeleton automatically)
+npm run build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Project Structure
 
-## Running unit tests
+```
+src/
+├── app/
+│   ├── core/
+│   │   ├── models/           # Data interfaces & constants
+│   │   └── services/         # ThemeService, TranslationService
+│   └── shared/
+│       ├── components/       # Header, Footer, Timeline, toggles, loading-spinner
+│       └── i18n/             # English & Portuguese translations
+├── index.html                # Entry point (pre-bootstrap spinner via placeholder)
+├── styles.scss               # Global theme variables
+├── main.ts                   # Client-side bootstrap
+├── main.server.ts            # Server-side rendering entry
+└── server.ts                 # Express server for SSR
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+public/
+├── pre-boot.css              # Pre-bootstrap spinner styles├── skeleton.html              # Pre-bootstrap spinner markup (injected at build time)
+└── favicon.ico
 
-```bash
-ng test
+scripts/
+└── inject-skeleton.mjs       # Build-time script to inline pre-boot skeleton into index.html
 ```
 
-## Running end-to-end tests
+## Pre-bootstrap Loading
 
-For end-to-end (e2e) testing, run:
+The app shows a loading spinner immediately on page load (before Angular boots).
+The spinner markup is inlined into `index.html` at build time via
+`scripts/inject-skeleton.mjs`. The styles live in `public/pre-boot.css` for a
+clean separation from the application code.
 
-```bash
-ng e2e
-```
+Once Angular's `ThemeService` signals that the app is ready (`loaded` signal),
+the spinner is faded out and removed from the DOM.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Constitution
 
-## Additional Resources
+This project follows a formal constitution defining four core principles:
+**Strict TypeScript**, **Standalone Components**, **SCSS Styling**, and
+**100% Test Coverage** via TDD (Red/Green).
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+See [`.specify/memory/constitution.md`](.specify/memory/constitution.md).
+
+## License
+
+MIT

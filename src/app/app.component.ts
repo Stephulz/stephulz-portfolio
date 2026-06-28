@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroArrowUp } from '@ng-icons/heroicons/outline';
@@ -9,6 +9,7 @@ import { injectSpeedInsights } from '@vercel/speed-insights';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { TimelineComponent } from './shared/components/timeline/timeline.component';
+import { ThemeService } from './core/services/theme.service';
 import { TranslationService } from './core/services/translation.service';
 
 @Component({
@@ -22,6 +23,17 @@ import { TranslationService } from './core/services/translation.service';
 export class AppComponent implements OnInit {
   private readonly platformId = inject(PLATFORM_ID);
   readonly translation = inject(TranslationService);
+  readonly theme = inject(ThemeService);
+
+  constructor() {
+    if (isPlatformBrowser(this.platformId)) {
+      effect(() => {
+        if (this.theme.loaded()) {
+          fadeOutPreBootSkeleton();
+        }
+      });
+    }
+  }
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -33,4 +45,22 @@ export class AppComponent implements OnInit {
   navigateToExternalLink(url: string): void {
     window.open(url, '_blank');
   }
+}
+
+/** Fade out and remove the pre-bootstrap skeleton screen from index.html. */
+function fadeOutPreBootSkeleton(): void {
+  const el = document.getElementById('pre-boot-skeleton');
+  if (!el) {
+    return;
+  }
+
+  el.classList.add('hidden');
+
+  el.addEventListener(
+    'transitionend',
+    () => {
+      el.remove();
+    },
+    { once: true },
+  );
 }

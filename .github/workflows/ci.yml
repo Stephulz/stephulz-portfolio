@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Test & Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Run tests
+        run: npm run test:ci
+
+      - name: Run tests with coverage
+        run: npm run test:coverage
+
+      - name: Semgrep SAST
+        run: |
+          python3 -m pip install semgrep
+          semgrep scan --config auto --error
+
+      - name: Get week number for cache key
+        id: week
+        run: echo "week=$(date +%V)" >> $GITHUB_OUTPUT
+
+      - name: Cache Trivy
+        id: cache-trivy
+        uses: actions/cache@v4
+        with:
+          path: |
+            /usr/local/bin/trivy
+            ~/.cache/trivy
+          # Expires weekly (ISO week number) — matches Dependabot cadence
+          key: trivy-${{ runner.os }}-${{ steps.week.outputs.week }}
+
+      - name: Install Trivy
+        if: steps.cache-trivy.outputs.cache-hit != 'true'
+        run: |
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Trivy dependency scan
+        run: |
+          trivy --version
+          trivy fs --scanners vuln --format table --exit-code 1 --severity CRITICAL,HIGH .
+
+      - name: Run build
+        run: npm run build
+
+      - name: Notify Vercel
+        uses: vercel/repository-dispatch/actions/status@v1
+        with:
+          name: Vercel - stephulz-portfolio: coverage
+          token: ${{ secrets.GITHUB_TOKEN }}
