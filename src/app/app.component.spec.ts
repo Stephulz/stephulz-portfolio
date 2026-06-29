@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { TranslationService } from './core/services/translation.service';
 import { ThemeService } from './core/services/theme.service';
+import { ConfigCatService } from './core/services/configcat.service';
 import { signal, PLATFORM_ID, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { EN } from './shared/i18n/en';
 import { provideIcons } from '@ng-icons/core';
@@ -9,6 +10,16 @@ import { bootstrapGithub, bootstrapLinkedin } from '@ng-icons/bootstrap-icons';
 import { simpleGooglemaps } from '@ng-icons/simple-icons';
 import { heroArrowUp } from '@ng-icons/heroicons/outline';
 import type { Translation, Language } from './shared/i18n/translations';
+
+jest.mock('./core/services/configcat.service', () => ({
+  ConfigCatService: jest.fn().mockImplementation(() => ({
+    getValueAsync: jest.fn().mockResolvedValue(false),
+  })),
+}));
+
+const createConfigCatServiceMock = (value = false) => ({
+  getValueAsync: jest.fn().mockResolvedValue(value),
+});
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -25,12 +36,14 @@ describe('AppComponent', () => {
       loaded: themeLoadedSignal as unknown as ThemeService['loaded'],
       theme: signal<'dark' | 'light'>('dark') as unknown as ThemeService['theme'],
     };
+    const configCatServiceMock = createConfigCatServiceMock();
 
     await TestBed.configureTestingModule({
       imports: [AppComponent],
       providers: [
         { provide: TranslationService, useValue: translationServiceMock },
         { provide: ThemeService, useValue: themeServiceMock },
+        { provide: ConfigCatService, useValue: configCatServiceMock },
         provideIcons({ bootstrapLinkedin, bootstrapGithub, simpleGooglemaps, heroArrowUp }),
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -88,6 +101,30 @@ describe('AppComponent', () => {
     expect(name?.textContent).toContain(EN.hero.name);
   });
 
+  it('should render projects link when the feature flag resolves to true', async () => {
+    const configCatServiceMock = createConfigCatServiceMock(true);
+
+    TestBed.resetTestingModule();
+    await TestBed.configureTestingModule({
+      imports: [AppComponent],
+      providers: [
+        { provide: TranslationService, useValue: { t: signal<Translation>(EN) as TranslationService['t'], currentLang: signal<Language>('en') } },
+        { provide: ThemeService, useValue: { loaded: signal(true) as ThemeService['loaded'], theme: signal<'dark' | 'light'>('dark') as ThemeService['theme'] } },
+        { provide: ConfigCatService, useValue: configCatServiceMock },
+        provideIcons({ bootstrapLinkedin, bootstrapGithub, simpleGooglemaps, heroArrowUp }),
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    }).compileComponents();
+
+    const testFixture = TestBed.createComponent(AppComponent);
+    testFixture.detectChanges();
+    await testFixture.whenStable();
+    testFixture.detectChanges();
+
+    const compiled = testFixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('a[href="#projects"]')).toBeTruthy();
+  });
+
   it('should render back to top link', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const backToTop = compiled.querySelector('.to-top');
@@ -140,12 +177,14 @@ describe('AppComponent in server environment', () => {
       loaded: themeLoadedSignal as unknown as ThemeService['loaded'],
       theme: signal<'dark' | 'light'>('dark') as unknown as ThemeService['theme'],
     };
+    const configCatServiceMock = createConfigCatServiceMock();
 
     await TestBed.configureTestingModule({
       imports: [AppComponent],
       providers: [
         { provide: TranslationService, useValue: translationServiceMock },
         { provide: ThemeService, useValue: themeServiceMock },
+        { provide: ConfigCatService, useValue: configCatServiceMock },
         { provide: PLATFORM_ID, useValue: 'server' },
         provideIcons({ bootstrapLinkedin, bootstrapGithub, simpleGooglemaps, heroArrowUp }),
       ],
@@ -175,6 +214,7 @@ describe('AppComponent — edge-case coverage', () => {
     // and the function early-returns without error.
     const tSignal = signal<Translation>(EN);
     const themeLoadedSignal = signal(true);
+    const configCatServiceMock = createConfigCatServiceMock();
 
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
@@ -194,6 +234,7 @@ describe('AppComponent — edge-case coverage', () => {
             theme: signal<'dark' | 'light'>('dark') as unknown as ThemeService['theme'],
           },
         },
+        { provide: ConfigCatService, useValue: configCatServiceMock },
         provideIcons({ bootstrapLinkedin, bootstrapGithub, simpleGooglemaps, heroArrowUp }),
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -210,6 +251,7 @@ describe('AppComponent — edge-case coverage', () => {
     // Then loaded becomes true → effect re-runs and takes if-path
     const tSignal = signal<Translation>(EN);
     const themeLoadedSignal = signal(false);
+    const configCatServiceMock = createConfigCatServiceMock();
 
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
@@ -229,6 +271,7 @@ describe('AppComponent — edge-case coverage', () => {
             theme: signal<'dark' | 'light'>('dark') as unknown as ThemeService['theme'],
           },
         },
+        { provide: ConfigCatService, useValue: configCatServiceMock },
         provideIcons({ bootstrapLinkedin, bootstrapGithub, simpleGooglemaps, heroArrowUp }),
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -10,6 +10,7 @@ export interface Translation {
     description: string;
     studying: string;
     viewExperience: string;
+    projects: string;
     location: string;
     backToTop: string;
   };
