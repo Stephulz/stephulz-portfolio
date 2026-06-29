@@ -38,14 +38,31 @@ jobs:
       - name: Run tests with coverage
         run: npm run test:coverage
 
-      - name: Semgrep SAST
-        run: |
-          python3 -m pip install semgrep
-          semgrep scan --config auto --error
-
       - name: Get week number for cache key
         id: week
         run: echo "week=$(date +%V)" >> $GITHUB_OUTPUT
+
+      # ─── Semgrep (SAST) ────────────────────────────────────────────────
+
+      - name: Cache Semgrep
+        id: cache-semgrep
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.semgrep/
+          # Expires weekly — matches Dependabot cadence
+          key: semgrep-${{ runner.os }}-${{ steps.week.outputs.week }}
+
+      - name: Install Semgrep
+        # Always runs — ~/.cache/pip only caches downloads, not the binary itself.
+        # On cache hit, pip uses cached .whl files (~1 sec); on miss, downloads fresh.
+        run: python3 -m pip install semgrep
+
+      - name: Semgrep SAST
+        run: semgrep scan --config auto --error
+
+      # ─── Trivy (dependency scanner) ────────────────────────────────────
 
       - name: Cache Trivy
         id: cache-trivy
@@ -54,7 +71,6 @@ jobs:
           path: |
             /usr/local/bin/trivy
             ~/.cache/trivy
-          # Expires weekly (ISO week number) — matches Dependabot cadence
           key: trivy-${{ runner.os }}-${{ steps.week.outputs.week }}
 
       - name: Install Trivy
