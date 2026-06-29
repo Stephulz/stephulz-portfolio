@@ -14,8 +14,8 @@ export const EXPERIENCES: Experience[] = [
   {
     id: 6,
     company: 'Bradesco',
-    role: 'Senior Systems Analyst',
-    rolePt: 'Analista de Sistemas Sênior',
+    role: 'Senior Software Engineer',
+    rolePt: 'Engenheiro de Software Sênior ',
     period: '2024 - Present',
     periodPt: '2024 - Presente',
     description:
