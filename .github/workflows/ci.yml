@@ -10,6 +10,10 @@ jobs:
   test:
     name: Test & Lint
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: write
+      statuses: write
 
     steps:
       - name: Checkout
@@ -70,4 +74,4 @@ jobs:
         uses: vercel/repository-dispatch/actions/status@v1
         with:
           name: 'Vercel - stephulz-portfolio: coverage'
-          token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
