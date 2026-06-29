@@ -69,5 +69,5 @@ jobs:
       - name: Notify Vercel
         uses: vercel/repository-dispatch/actions/status@v1
         with:
-          name: Vercel - stephulz-portfolio: coverage
+          name: 'Vercel - stephulz-portfolio: coverage'
           token: ${{ secrets.GITHUB_TOKEN }}
