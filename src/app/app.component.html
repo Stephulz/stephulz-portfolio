@@ -35,15 +35,25 @@
           <span class="badge pending">AZ-104 ({{ translation.t().hero.studying }})</span>
         </div>
 
+        <a href="#experience" class="btn-primary experience">
+          <ng-icon name="heroArrowDown" size="24" />
+          {{ translation.t().hero.viewExperience }}
+        </a>
+
         <div class="hero-actions">
-          <a href="#experience" class="btn-primary">
-            {{ translation.t().hero.viewExperience }}
-          </a>
           <a href="https://www.linkedin.com/in/stefan-s-aa7654a5/?locale=en_US" target="_blank"
             rel="noopener noreferrer" class="btn-secondary">
             <ng-icon name="bootstrapLinkedin" size="24" />
             LinkedIn
           </a>
+
+          @if (showProjectsLink()) {
+          <a href="#projects" class="btn-secondary">
+            <ng-icon name="heroRectangleStack" size="24" />
+            {{ translation.t().hero.projects }}
+          </a>
+          }
+
           <a href="https://www.github.com/stephulz" target="_blank" rel="noopener noreferrer" class="btn-secondary">
             <ng-icon name="bootstrapGithub" size="24" />
             GitHub

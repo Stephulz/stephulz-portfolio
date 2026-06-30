@@ -32,9 +32,9 @@ export const EXPERIENCES: Experience[] = [
     period: '2022 - 2024',
     periodPt: '2022 - 2024',
     description:
-      'Worked on insurance and financial software solutions. Built responsive frontends, developed backend microservices, and participated in the full software development lifecycle using agile methodologies.',
+      'Designed insurance and financial software solutions. Built responsive frontends, developed backend microservices, and participated in the full software development lifecycle using agile methodologies.',
     descriptionPt:
-      'Trabalhou em soluções de software para seguros e finanças. Construiu interfaces responsivas, desenvolveu microsserviços backend e participou de todo o ciclo de desenvolvimento de software usando metodologias ágeis.',
+      'Arquitetou soluções de software para seguros e finanças. Construiu interfaces responsivas, desenvolveu microsserviços e participou de todo o ciclo de desenvolvimento de software usando metodologias ágeis.',
     technologies: ['Java', 'Spring Boot', 'React', 'SQL', 'AWS'],
   },
   {
@@ -45,9 +45,9 @@ export const EXPERIENCES: Experience[] = [
     period: '2021 - 2022',
     periodPt: '2021 - 2022',
     description:
-      'Developed scalable web applications for the life insurance sector. Collaborated in agile squads to deliver features from concept to production, focusing on performance optimization and clean architecture.',
+      'Designed scalable web applications for the life insurance sector. Collaborated in agile squads to deliver features from concept to production, focusing on performance optimization and clean architecture.',
     descriptionPt:
-      'Desenvolveu aplicações web escaláveis para o setor de seguros de vida. Colaborou em squads ágeis para entregar funcionalidades do conceito à produção, com foco em otimização de performance e arquitetura limpa.',
+      'Projetou aplicações web escaláveis para o setor de seguros de vida. Colaborou em squads ágeis para entregar funcionalidades do conceito à produção, com foco em otimização de performance e arquitetura limpa.',
     technologies: ['Java', 'Spring Boot', 'React', 'SQL', 'GCP'],
   },
   {

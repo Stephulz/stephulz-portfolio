@@ -22,6 +22,7 @@ Personal portfolio built with **Angular 22**, **TypeScript 6**, **SCSS**, and
 | Dependency scanning | Trivy (cached weekly) |
 | Hosting | Vercel (Hobby) |
 | CI | GitHub Actions (lint, test, coverage, SAST, Trivy, build) |
+| Feature Toggle | ConfigCat |
 
 ## Commands
 

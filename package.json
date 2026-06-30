@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "set-env": "node set-env.js",
+    "prestart": "npm run set-env",
+    "prebuild": "npm run set-env",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
@@ -22,6 +25,7 @@
     "@angular/platform-server": "^22.0.0",
     "@angular/router": "^22.0.0",
     "@angular/ssr": "^22.0.0",
+    "@configcat/sdk": "^1.1.0",
     "@ng-icons/bootstrap-icons": "^33.3.0",
     "@ng-icons/boxicons": "^33.3.0",
     "@ng-icons/core": "^33.3.0",

@@ -1,5 +1,6 @@
 .main-content {
-  padding-top: 64px; /* offset for fixed header */
+  padding-top: 64px;
+  /* offset for fixed header */
   min-height: 100dvh;
 }
 
@@ -78,7 +79,7 @@
 
 .hero-description {
   font-size: 1.1rem;
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
   margin: 0 0 24px;
   line-height: 1.7;
   max-width: 540px;
@@ -122,6 +123,7 @@
 
   &.pending {
     color: var(--accent-pending);
+
     &:hover {
       opacity: 0.9;
     }
@@ -159,6 +161,10 @@
   text-decoration: none;
   cursor: pointer;
   transition: all 0.2s ease;
+
+  &.experience {
+    margin-bottom: 32px;
+  }
 }
 
 .btn-primary {
@@ -209,7 +215,7 @@
     font-size: 2rem;
   }
 
-  .hero-actions {    
+  .hero-actions {
     align-items: center;
   }
 }

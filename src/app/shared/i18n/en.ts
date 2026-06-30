@@ -7,6 +7,7 @@ export const EN = {
       'Building scalable, high-performance applications with Java, Angular, and cloud technologies. Passionate about clean code, elegant architecture, and great user experiences.',
     studying: 'studying',
     viewExperience: 'View My Work Experience',
+    projects: 'Projects',
     location: 'São Paulo, Brazil',
     backToTop: 'Back to top'
   },

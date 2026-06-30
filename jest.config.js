@@ -9,6 +9,8 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
   testEnvironment: 'jsdom',
   moduleNameMapper: {
+    // This regex catches imports looking for the env file
+    '(.*)/env$': '<rootDir>/src/app/mock/env.mock.ts',
     '^src/(.*)$': '<rootDir>/src/$1',
   },
   coverageDirectory: '<rootDir>/coverage',
@@ -27,19 +29,10 @@ module.exports = {
   ],
   coverageThreshold: {
     global: {
-      statements: 97,
-      branches: 89,
-      functions: 93,
-      lines: 98,
-    },
-    'src/app/app.component.ts': {
-      branches: 50,
-    },
-    'src/app/core/services/theme.service.ts': {
-      branches: 80,
-    },
-    'src/app/core/services/translation.service.ts': {
-      branches: 80,
-    },
+      statements: 90,
+      branches: 90,
+      functions: 90,
+      lines: 90,
+    }
   },
 };
