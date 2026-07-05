@@ -1,5 +1,4 @@
 name: CI
-
 on:
   push:
     branches: [main]
@@ -17,10 +16,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22
           cache: npm
@@ -37,16 +36,28 @@ jobs:
 
       - name: Run tests with coverage
         run: npm run test:coverage
+      - name: Run build
+        run: npm run build
+
+  semgrep:
+    name: Semrep (SAST)
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: write
+      statuses: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Get week number for cache key
         id: week
         run: echo "week=$(date +%V)" >> $GITHUB_OUTPUT
 
-      # ─── Semgrep (SAST) ────────────────────────────────────────────────
-
       - name: Cache Semgrep
         id: cache-semgrep
-        uses: actions/cache@v4
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         with:
           path: |
             ~/.cache/pip
@@ -58,36 +69,58 @@ jobs:
         # Always runs — ~/.cache/pip only caches downloads, not the binary itself.
         # On cache hit, pip uses cached .whl files (~1 sec); on miss, downloads fresh.
         run: python3 -m pip install semgrep
-
       - name: Semgrep SAST
         run: semgrep scan --config auto --error
 
-      # ─── Trivy (dependency scanner) ────────────────────────────────────
+  trivy:
+    name: Trivy (SCA)
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: write
+      statuses: write
 
-      - name: Cache Trivy
-        id: cache-trivy
-        uses: actions/cache@v4
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@c07df6fec6fa692e6fd1200d50aaa1fdd66f03c8 # v0.36.0
         with:
-          path: |
-            /usr/local/bin/trivy
-            ~/.cache/trivy
-          key: trivy-${{ runner.os }}-${{ steps.week.outputs.week }}
+          scan-type: "fs"
+          scan-ref: "."
+          scanners: "vuln"
+          format: "table"
+          severity: "CRITICAL,HIGH"
+          exit-code: 1
 
-      - name: Install Trivy
-        if: steps.cache-trivy.outputs.cache-hit != 'true'
-        run: |
-          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+  Vercel:
+    name: Notify Vercel
+    if: always()
+    needs: [test, semgrep, trivy]
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: write
+      statuses: write
 
-      - name: Trivy dependency scan
-        run: |
-          trivy --version
-          trivy fs --scanners vuln --format table --exit-code 1 --severity CRITICAL,HIGH .
-
-      - name: Run build
-        run: npm run build
-
+    steps:
       - name: Notify Vercel
-        uses: vercel/repository-dispatch/actions/status@v1
+        uses: vercel/repository-dispatch/actions/status@30f760c6640485cd92f8c785ef361382555fb712 # v1
         with:
-          name: 'Vercel - stephulz-portfolio: coverage'
+          # Must match the check name configured in Vercel Deployment Checks
+          name: "Vercel - stephulz-portfolio: coverage"
           github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Fail the job if any upstream dependency failed — this makes the
+      # vercel/repository-dispatch post-action report failure to Vercel.
+      - name: Propagate upstream failure
+        if: >-
+          contains(needs.*.result, 'failure') ||
+          contains(needs.*.result, 'cancelled')
+        run: |
+          echo "❌ Some checks failed — notifying Vercel of failure"
+          echo "test:     ${{ needs.test.result }}"
+          echo "semgrep:  ${{ needs.semgrep.result }}"
+          echo "trivy:    ${{ needs.trivy.result }}"
+          exit 1
