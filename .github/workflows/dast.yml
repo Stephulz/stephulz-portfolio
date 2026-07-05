@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@4f1f4aec02e41874fa0262ea8ff5172d7978ad1e # v7
 
       - name: ZAP Baseline Scan
         uses: zaproxy/action-baseline@f948cb8d66e25e330a23e64e3fc72a5c0018b16d # v0.15.0

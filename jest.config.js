@@ -25,6 +25,7 @@ module.exports = {
     '!src/app/app.config.ts',
     '!src/app/app.config.server.ts',
     '!src/app/app.routes.ts',
+    '!src/app/env.ts',
     '!src/app/core/utils/cookie.ts',
   ],
   coverageThreshold: {

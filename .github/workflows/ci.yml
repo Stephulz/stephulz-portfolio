@@ -16,10 +16,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@4f1f4aec02e41874fa0262ea8ff5172d7978ad1e # v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v7
         with:
           node-version: 22
           cache: npm
@@ -39,6 +39,11 @@ jobs:
       - name: Run build
         run: npm run build
 
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
   semgrep:
     name: Semrep (SAST)
     runs-on: ubuntu-latest
@@ -49,7 +54,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@4f1f4aec02e41874fa0262ea8ff5172d7978ad1e # v7
 
       - name: Get week number for cache key
         id: week
@@ -57,7 +62,7 @@ jobs:
 
       - name: Cache Semgrep
         id: cache-semgrep
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v7
         with:
           path: |
             ~/.cache/pip
@@ -82,7 +87,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@4f1f4aec02e41874fa0262ea8ff5172d7978ad1e # v7
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@c07df6fec6fa692e6fd1200d50aaa1fdd66f03c8 # v0.36.0

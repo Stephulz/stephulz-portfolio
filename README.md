@@ -2,6 +2,7 @@
 
 [![Node](https://img.shields.io/badge/Node-22-339933?logo=node.js&logoColor=white)](https://nodejs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![codecov](https://codecov.io/github/Stephulz/stephulz-portfolio/graph/badge.svg?token=QMPUD6RU8G)](https://codecov.io/github/Stephulz/stephulz-portfolio)
 [![CI](https://github.com/Stephulz/stephulz-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/Stephulz/stephulz-portfolio/actions/workflows/ci.yml)
 [![DAST](https://github.com/Stephulz/stephulz-portfolio/actions/workflows/dast.yml/badge.svg?branch=main)](https://github.com/Stephulz/stephulz-portfolio/actions/workflows/dast.yml)
 [![Vercel](https://img.shields.io/badge/Vercel-Deployed-000000?logo=vercel&logoColor=white)](https://stephulz-portfolio.vercel.app/)
@@ -16,7 +17,6 @@ Portfolio built with **Angular 22**, **TypeScript 6**, **SCSS**, and **Jest**. D
 - [🛠️ Tech Stack](#️-tech-stack)
 - [⚡ Development Commands](#-development-commands)
 - [📁 Project Structure](#-project-structure)
-- [⏳ Startup Experience](#-startup-experience)
 - [🔄 CI Pipeline](#-ci-pipeline)
 - [📜 Development Standards](#-development-standards)
 - [📄 License](#-license)
@@ -85,12 +85,14 @@ npm run build
 src/
 ├── app/
 │   ├── core/
-│   │   ├── models/           # Data interfaces & constants
-│   │   └── services/         # ThemeService, TranslationService
+│   │   ├── models/           # Data interfaces & constants (Experience, Project)
+│   │   └── services/         # ThemeService, TranslationService, ConfigCatService
+│   ├── mock/
+│   │   └── env.mock.ts       # Jest mock for auto-generated env.ts
 │   └── shared/
-│       ├── components/       # Header, Footer, Timeline, Toggles, Loading Spinner
+│       ├── components/       # Header, Footer, Timeline, Projects, Toggles, Spinner
 │       └── i18n/             # English & Portuguese translations
-├── index.html                # Entry point (pre-bootstrap spinner)
+├── index.html                # Entry point (pre-bootstrap skeleton)
 ├── styles.scss               # Global styles & theme variables
 ├── main.ts                   # Client bootstrap
 ├── main.server.ts            # SSR bootstrap
@@ -98,19 +100,9 @@ src/
 
 public/
 └── favicon.ico
+
+coverage/             # Generated coverage reports (gitignored)
 ```
-
----
-
-## ⏳ Startup Experience
-
-To provide a smoother first paint, the application displays a dual-ring loading spinner immediately when the page loads—before Angular is initialized.
-
-The spinner styles are inlined inside `index.html`, eliminating additional network requests during the initial render.
-
-Once Angular finishes bootstrapping, `ThemeService` emits the `loaded` signal and `fadeOutPreBootSkeleton()` gracefully fades the spinner out before removing it from the DOM.
-
----
 
 ## 🔄 CI Pipeline
 
