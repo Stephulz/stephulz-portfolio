@@ -22,5 +22,8 @@ jobs:
       - name: ZAP Baseline Scan
         uses: zaproxy/action-baseline@f948cb8d66e25e330a23e64e3fc72a5c0018b16d # v0.15.0
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           target: ${{ vars.VERCEL_URL || 'https://stephulz-portfolio.vercel.app' }}
+          allow_issue_writing: true
+          issue_title: "ZAP Scan Baseline Report"
           fail_action: true
