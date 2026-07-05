@@ -1,100 +1,145 @@
-# Stephulz Portfolio
+# 🚀 Stephulz Portfolio
 
-[![Node](https://img.shields.io/badge/node-22-339933?logo=node.js&logoColor=white)](https://nodejs.org)
+[![Node](https://img.shields.io/badge/Node-22-339933?logo=node.js&logoColor=white)](https://nodejs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![CI](https://github.com/Stephulz/stephulz-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/Stephulz/stephulz-portfolio/actions/workflows/ci.yml)
-![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
-![Vercel](https://img.shields.io/badge/Vercel-deployed-000000?logo=vercel&logoColor=white)
+[![DAST](https://github.com/Stephulz/stephulz-portfolio/actions/workflows/dast.yml/badge.svg?branch=main)](https://github.com/Stephulz/stephulz-portfolio/actions/workflows/dast.yml)
+[![Vercel](https://img.shields.io/badge/Vercel-Deployed-000000?logo=vercel&logoColor=white)](https://stephulz-portfolio.vercel.app/)
 
-Personal portfolio built with **Angular 22**, **TypeScript 6**, **SCSS**, and
-**Jest**. Deployed on **Vercel**.
+Portfolio built with **Angular 22**, **TypeScript 6**, **SCSS**, and **Jest**. Designed with performance, accessibility, security, and maintainability in mind, and deployed on **Vercel**.
 
-## Stack
+---
 
-| Layer | Tech |
-|---|---|
-| Framework | Angular 22 (standalone, SSR) |
-| Language | TypeScript 6 (strict mode) |
-| Styling | SCSS (component-scoped, CSS custom properties) |
-| Testing | Jest + jsdom |
-| Linting | Angular ESLint |
-| SAST | Semgrep (cached weekly) |
-| Dependency scanning | Trivy (cached weekly) |
-| Hosting | Vercel (Hobby) |
-| CI | GitHub Actions (lint, test, coverage, SAST, Trivy, build) |
-| Feature Toggle | ConfigCat |
+## 📚 Table of Contents
 
-## Commands
+- [✨ Features](#-features)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [⚡ Development Commands](#-development-commands)
+- [📁 Project Structure](#-project-structure)
+- [⏳ Startup Experience](#-startup-experience)
+- [🔄 CI Pipeline](#-ci-pipeline)
+- [📜 Development Standards](#-development-standards)
+- [📄 License](#-license)
+
+---
+
+## ✨ Features
+
+- 🌙 Light & Dark themes
+- 🌍 Internationalization (English & Portuguese)
+- ⚡ Server-Side Rendering (SSR)
+- 📱 Responsive design
+- 🧪 100% unit test coverage
+- 🔒 Automated security scanning
+- 🚀 Continuous deployment with Vercel
+- 🎨 Modern UI with smooth theme transitions
+
+---
+
+## 🛠️ Tech Stack
+
+| Category | Technology |
+| ---------- | ---------- |
+| 🎨 Frontend | Angular 22 (Standalone + SSR) |
+| 💻 Language | TypeScript 6 (Strict Mode) |
+| 🎭 Styling | SCSS + CSS Custom Properties |
+| 🧪 Testing | Jest + jsdom |
+| 🔍 Linting | Angular ESLint |
+| 🔒 Security | Semgrep (SAST), Trivy (Dependency Scanning) |
+| 🔄 CI/CD | GitHub Actions |
+| 🌐 Hosting | Vercel |
+| 🎛️ Feature Flags | ConfigCat |
+
+---
+
+## ⚡ Development Commands
 
 ```bash
-# Serve locally
+# Install dependencies
+npm install
+
+# Start development server
 npm start
 
-# Run tests (single run)
+# Run tests
 npm test
 
-# Run tests (CI mode)
+# Run tests in CI mode
 npm run test:ci
 
 # Run tests with coverage
 npm run test:coverage
 
-# Lint
+# Lint the project
 npm run lint
 
-# Production build
+# Create production build
 npm run build
 ```
 
-## Project Structure
+---
 
-```
+## 📁 Project Structure
+
+```text
 src/
 ├── app/
 │   ├── core/
 │   │   ├── models/           # Data interfaces & constants
 │   │   └── services/         # ThemeService, TranslationService
 │   └── shared/
-│       ├── components/       # Header, Footer, Timeline, toggles, loading-spinner
+│       ├── components/       # Header, Footer, Timeline, Toggles, Loading Spinner
 │       └── i18n/             # English & Portuguese translations
-├── index.html                # Entry point (pre-bootstrap spinner inlined)
-├── styles.scss               # Global theme variables
-├── main.ts                   # Client-side bootstrap
-├── main.server.ts            # Server-side rendering entry
-└── server.ts                 # Express server for SSR
+├── index.html                # Entry point (pre-bootstrap spinner)
+├── styles.scss               # Global styles & theme variables
+├── main.ts                   # Client bootstrap
+├── main.server.ts            # SSR bootstrap
+└── server.ts                 # Express server
 
 public/
 └── favicon.ico
 ```
 
-## Pre-bootstrap Loading
+---
 
-The app shows a dual-ring loading spinner immediately on page load (before
-Angular boots). The spinner CSS is inlined in `index.html` so no external
-request is needed for the initial paint.
+## ⏳ Startup Experience
 
-Once Angular's `ThemeService` signals that the app is ready (`loaded` signal),
-the `fadeOutPreBootSkeleton()` function adds a `hidden` class to fade the
-spinner out, then removes it from the DOM after the CSS transition completes.
+To provide a smoother first paint, the application displays a dual-ring loading spinner immediately when the page loads—before Angular is initialized.
 
-## CI Pipeline
+The spinner styles are inlined inside `index.html`, eliminating additional network requests during the initial render.
 
-The CI workflow runs on every push/PR to `main`:
+Once Angular finishes bootstrapping, `ThemeService` emits the `loaded` signal and `fadeOutPreBootSkeleton()` gracefully fades the spinner out before removing it from the DOM.
 
-1. **Lint** — Angular ESLint
-2. **Test** — Jest with 100% coverage enforcement
-3. **Semgrep** — SAST scan (pip + rule registry cached weekly)
-4. **Trivy** — Dependency vulnerability scan (binary + cache cached weekly)
-5. **Build** — Production build via Angular CLI
+---
 
-## Constitution
+## 🔄 CI Pipeline
 
-This project follows a formal constitution defining four core principles:
-**Strict TypeScript**, **Standalone Components**, **SCSS Styling**, and
-**100% Test Coverage** via TDD (Red/Green).
+Every push and pull request targeting `main` executes the following workflow:
 
-See [`.specify/memory/constitution.md`](.specify/memory/constitution.md).
+| Stage | Description |
+| ------ | ----------- |
+| ✅ Lint | Angular ESLint |
+| 🧪 Test | Jest with **100% coverage enforcement** |
+| 🔒 SAST | Semgrep security analysis |
+| 🛡️ Dependency Scan | Trivy vulnerability scan |
+| 🏗️ Build | Production Angular build |
 
-## License
+---
 
-MIT
+## 📜 Development Standards
+
+This project follows a formal development constitution centered around the following principles:
+
+- 💪 Strict TypeScript
+- 🧩 Standalone Angular Components
+- 🎨 SCSS-first styling
+- 🔴🟢 Test-Driven Development (TDD)
+- 🧪 100% Test Coverage
+
+See [`.specify/memory/constitution.md`](.specify/memory/constitution.md) for the complete specification.
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**.
