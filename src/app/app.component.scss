@@ -149,45 +149,8 @@
   }
 }
 
-.btn-primary,
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 28px;
-  border-radius: 12px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-
-  &.experience {
-    margin-bottom: 32px;
-  }
-}
-
-.btn-primary {
-  color: #fff;
-  background: var(--accent);
-  border: none;
-
-  &:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
-  }
-}
-
-.btn-secondary {
-  color: var(--text-primary);
-  background: var(--surface-bg);
-  border: 1px solid var(--border-color);
-
-  &:hover {
-    border-color: var(--accent);
-    background: var(--accent-bg);
-    transform: translateY(-1px);
-  }
+.experience {
+  margin-bottom: 32px;
 }
 
 /* ─── Responsive ─── */

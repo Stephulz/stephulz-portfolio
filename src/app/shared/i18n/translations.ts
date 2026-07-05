@@ -3,7 +3,7 @@ import { PT } from './pt';
 
 // Use an interface to allow any string values, not just the literal EN strings
 export interface Translation {
-  hero: {
+  introduction: {
     greeting: string;
     name: string;
     subtitle: string;
@@ -12,12 +12,20 @@ export interface Translation {
     viewExperience: string;
     projects: string;
     location: string;
+  },
+  general: {
     backToTop: string;
   };
   nav: {
     experience: string;
     about: string;
     contact: string;
+  };
+  projects: {
+    title: string;
+    subtitle: string;
+    viewGitUrl: string;
+    archDetails: string;
   };
   experience: {
     title: string;

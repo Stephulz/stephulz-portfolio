@@ -10,9 +10,9 @@
 
 # Stephulz Portfolio — Angular 22 Constitution
 
-**Version:** 1.1.0
+**Version:** 2.0.0
 **Ratified:** 2026-06-28
-**Last Amended:** 2026-06-28
+**Last Amended:** 2026-06-30
 
 ## Preamble
 
@@ -138,7 +138,7 @@ first, then implement the code to make it pass.
 
 **Rules:**
 
-1. **100% line, function, and ~96% branch coverage** (enforced via `jest --coverage`).
+1. **100% coverage** (enforced via `jest --coverage`).
    Every component, service, pipe, guard, and resolver MUST have a
    corresponding `.spec.ts` file.
 
@@ -205,8 +205,8 @@ legacy code to exempt.
 | **Framework** | Angular 22 (standalone, SSR-ready) |
 | **Language** | TypeScript 6+ (strict mode, no `any`) |
 | **Styling** | SCSS (component-scoped via `styleUrl`, CSS custom properties for theming) |
-| **Testing** | Vitest 4+ + jsdom + `@angular/build:unit-test` |
-| **Coverage** | `vitest --coverage` (100% line + branch target) |
+| **Testing** | Jest 30 + + jsdom + `@angular/build:unit-test` |
+| **Coverage** | `jest --coverage` (100% line + branch target) |
 | **Build** | Angular CLI with ESBuild/Vite |
 | **Server** | Angular SSR via Express + `@angular/ssr` (Vercel-ready) |
 | **Routing** | `provideRouter` with functional guards/resolvers |

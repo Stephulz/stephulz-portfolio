@@ -32,8 +32,8 @@ describe('TranslationService', () => {
 
     it('should have translation function that returns English by default', () => {
       const t = service.t();
-      expect(t.hero.greeting).toBe("Hi, I'm");
-      expect(t.hero.name).toBe('Stefan Sanches');
+      expect(t.introduction.greeting).toBe("Hi, I'm");
+      expect(t.introduction.name).toBe('Stefan Sanches');
     });
 
     it('should toggle language to Portuguese', () => {
@@ -50,13 +50,13 @@ describe('TranslationService', () => {
     it('should update translation signal when toggling', () => {
       service.toggle();
       const t = service.t();
-      expect(t.hero.greeting).toBe('Olá, eu sou');
+      expect(t.introduction.greeting).toBe('Olá, eu sou');
     });
 
     it('should set language explicitly', () => {
       service.setLanguage('pt');
       expect(service.currentLang()).toBe('pt');
-      expect(service.t().hero.greeting).toBe('Olá, eu sou');
+      expect(service.t().introduction.greeting).toBe('Olá, eu sou');
     });
 
     it('should set the lang attribute on documentElement', () => {
@@ -85,7 +85,7 @@ describe('TranslationService', () => {
       service = TestBed.inject(TranslationService);
 
       expect(service.currentLang()).toBe('pt');
-      expect(service.t().hero.greeting).toBe('Olá, eu sou');
+      expect(service.t().introduction.greeting).toBe('Olá, eu sou');
     });
 
     it('should handle invalid stored language gracefully', () => {
@@ -118,7 +118,7 @@ describe('TranslationService', () => {
       const svc = TestBed.inject(TranslationService);
 
       expect(svc.currentLang()).toBe('pt');
-      expect(svc.t().hero.greeting).toBe('Olá, eu sou');
+      expect(svc.t().introduction.greeting).toBe('Olá, eu sou');
 
       Object.defineProperty(navigator, 'language', {
         value: originalLang,
@@ -201,7 +201,7 @@ describe('TranslationService', () => {
     it('should set language without DOM access in SSR', () => {
       service.setLanguage('pt');
       expect(service.currentLang()).toBe('pt');
-      expect(service.t().hero.greeting).toBe('Olá, eu sou');
+      expect(service.t().introduction.greeting).toBe('Olá, eu sou');
       expect(document.documentElement.getAttribute('lang')).toBeNull();
       expect(localStorage.getItem('portfolio-lang')).toBeNull();
     });

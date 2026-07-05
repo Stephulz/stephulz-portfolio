@@ -9,14 +9,14 @@
 
     <div class="hero-content">
       <div class="hero-text">
-        <p class="hero-greeting">{{ translation.t().hero.greeting }}</p>
-        <h1 class="hero-name">{{ translation.t().hero.name }}</h1>
-        <h2 class="hero-subtitle">{{ translation.t().hero.subtitle }}</h2>
-        <p class="hero-description">{{ translation.t().hero.description }}</p>
+        <p class="hero-greeting">{{ translation.t().introduction.greeting }}</p>
+        <h1 class="hero-name">{{ translation.t().introduction.name }}</h1>
+        <h2 class="hero-subtitle">{{ translation.t().introduction.subtitle }}</h2>
+        <p class="hero-description">{{ translation.t().introduction.description }}</p>
 
         <div class="hero-location">
           <ng-icon name="simpleGooglemaps" size="20" />
-          {{ translation.t().hero.location }}
+          {{ translation.t().introduction.location }}
         </div>
 
         <div class="hero-badges">
@@ -32,12 +32,12 @@
             ">
             DP-900
           </span>
-          <span class="badge pending">AZ-104 ({{ translation.t().hero.studying }})</span>
+          <span class="badge pending">AZ-104 ({{ translation.t().introduction.studying }})</span>
         </div>
 
         <a href="#experience" class="btn-primary experience">
           <ng-icon name="heroArrowDown" size="24" />
-          {{ translation.t().hero.viewExperience }}
+          {{ translation.t().introduction.viewExperience }}
         </a>
 
         <div class="hero-actions">
@@ -47,10 +47,10 @@
             LinkedIn
           </a>
 
-          @if (showProjectsLink()) {
+          @if (showProjects()) {
           <a href="#projects" class="btn-secondary">
             <ng-icon name="heroRectangleStack" size="24" />
-            {{ translation.t().hero.projects }}
+            {{ translation.t().introduction.projects }}
           </a>
           }
 
@@ -63,12 +63,16 @@
     </div>
   </section>
 
+  @if (showProjects()) {
+  <app-projects />
+  }
+
   <app-timeline />
 
   <div class="hero-actions to-top">
     <a href="#home" class="btn-primary">
       <ng-icon name="heroArrowUp" size="24" />
-      {{ translation.t().hero.backToTop }}
+      {{ translation.t().general.backToTop }}
     </a>
   </div>
 

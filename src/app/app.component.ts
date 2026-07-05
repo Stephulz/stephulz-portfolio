@@ -12,11 +12,12 @@ import { TimelineComponent } from './shared/components/timeline/timeline.compone
 import { ThemeService } from './core/services/theme.service';
 import { TranslationService } from './core/services/translation.service';
 import { ConfigCatService } from './core/services/configcat.service';
+import { ProjectsComponent } from "./shared/components/projects/projects.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, TimelineComponent, NgIcon],
+  imports: [HeaderComponent, FooterComponent, TimelineComponent, NgIcon, ProjectsComponent],
   providers: [provideIcons({ bootstrapLinkedin, bootstrapGithub, simpleGooglemaps, heroArrowUp, heroArrowDown, heroRectangleStack })],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -27,7 +28,7 @@ export class AppComponent implements OnInit {
   readonly translation = inject(TranslationService);
   readonly theme = inject(ThemeService);
   readonly configCatService = inject(ConfigCatService)
-  readonly showProjectsLink = signal(false);
+  readonly showProjects = signal(false);
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
@@ -43,7 +44,7 @@ export class AppComponent implements OnInit {
   private async loadProjectsLinkFlag(): Promise<void> {
     const enabled = await this.configCatService.getValueAsync('projectSection', false);
     this.ngZone.run(() => {
-      this.showProjectsLink.set(enabled);
+      this.showProjects.set(enabled);
     });
   }
 

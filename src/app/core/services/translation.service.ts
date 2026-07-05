@@ -29,8 +29,6 @@ export class TranslationService {
       return;
     }
 
-    // Try to detect from browser locale / geolocation
-    // For Brazilian Portuguese, check navigator.language
     const lang = navigator.language?.toLowerCase() || '';
     if (lang.startsWith('pt') || lang.startsWith('pt-br')) {
       this.setLanguage('pt');

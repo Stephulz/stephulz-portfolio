@@ -1,5 +1,5 @@
 export const PT = {
-  hero: {
+  introduction: {
     greeting: 'Olá, eu sou',
     name: 'Stefan Sanches',
     subtitle: 'Engenheiro de Software Full Stack',
@@ -9,12 +9,20 @@ export const PT = {
     viewExperience: 'Veja Minha Trajetória Profissional',
     projects: 'Projetos',
     location: 'São Paulo, Brasil',
+  },
+  general: {
     backToTop: 'Voltar ao topo'
   },
   nav: {
     experience: 'Trajetória Profissional',
     about: 'Sobre',
     contact: 'Contato',
+  },
+  projects: {
+    title: 'Projetos Pessoais',
+    subtitle: '',
+    viewGitUrl: 'Veja o código',
+    archDetails: 'Detalhes da Arquitetura'
   },
   experience: {
     title: 'Experiência Profissional',

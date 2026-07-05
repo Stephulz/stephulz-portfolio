@@ -69,7 +69,7 @@ describe('AppComponent', () => {
 
   it('should have an t() function that returns translations', () => {
     const t = component.translation.t();
-    expect(t.hero.name).toBe('Stefan Sanches');
+    expect(t.introduction.name).toBe('Stefan Sanches');
   });
 
   it('should render the header section', () => {
@@ -91,14 +91,14 @@ describe('AppComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const greeting = compiled.querySelector('.hero-greeting');
     expect(greeting).toBeTruthy();
-    expect(greeting?.textContent).toContain(EN.hero.greeting);
+    expect(greeting?.textContent).toContain(EN.introduction.greeting);
   });
 
   it('should render hero name', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const name = compiled.querySelector('.hero-name');
     expect(name).toBeTruthy();
-    expect(name?.textContent).toContain(EN.hero.name);
+    expect(name?.textContent).toContain(EN.introduction.name);
   });
 
   it('should render projects link when the feature flag resolves to true', async () => {

@@ -27,13 +27,11 @@ export class ConfigCatService implements OnDestroy {
         const cached = this.getCachedValue(feature);
 
         if (cached && cached.expiresAt > now) {
-            console.log(`cached ${feature}: ${cached.value}`);
             return cached.value;
         }
 
         const value = await this.client.getValueAsync(feature, defaultValue);
         this.setCachedValue(feature, value, now + ConfigCatService.CACHE_TTL_MS);
-        console.log(`${feature}: ${value}`);
         return value;
     }
 
