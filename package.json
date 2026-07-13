@@ -43,7 +43,6 @@
     "@angular/build": "^22.0.5",
     "@angular/cli": "^22.0.5",
     "@angular/compiler-cli": "^22.0.5",
-    "@angular/platform-browser-dynamic": "^22.0.4",
     "@eslint/js": "^10.0.1",
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
