@@ -17,14 +17,14 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/common": "^22.0.0",
-    "@angular/compiler": "^22.0.0",
-    "@angular/core": "^22.0.0",
-    "@angular/forms": "^22.0.0",
-    "@angular/platform-browser": "^22.0.0",
-    "@angular/platform-server": "^22.0.0",
-    "@angular/router": "^22.0.0",
-    "@angular/ssr": "^22.0.0",
+    "@angular/common": "^22.0.5",
+    "@angular/compiler": "^22.0.5",
+    "@angular/core": "^22.0.5",
+    "@angular/forms": "^22.0.5",
+    "@angular/platform-browser": "^22.0.5",
+    "@angular/platform-server": "^22.0.5",
+    "@angular/router": "^22.0.5",
+    "@angular/ssr": "^22.0.5",
     "@configcat/sdk": "^1.1.0",
     "@ng-icons/bootstrap-icons": "^33.3.0",
     "@ng-icons/boxicons": "^33.3.0",
@@ -40,14 +40,14 @@
     "zone.js": "~0.16.2"
   },
   "devDependencies": {
-    "@angular/build": "^22.0.3",
-    "@angular/cli": "^22.0.0",
-    "@angular/compiler-cli": "^22.0.0",
+    "@angular/build": "^22.0.5",
+    "@angular/cli": "^22.0.5",
+    "@angular/compiler-cli": "^22.0.5",
     "@angular/platform-browser-dynamic": "^22.0.4",
     "@eslint/js": "^10.0.1",
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
-    "@types/node": "^26.0.1",
+    "@types/node": "^26.1.0",
     "angular-eslint": "22.0.0",
     "eslint": "^10.3.0",
     "husky": "^9.1.7",
@@ -55,6 +55,6 @@
     "jest-environment-jsdom": "^30.4.1",
     "jest-preset-angular": "^17.0.0",
     "typescript": "^6.0.0",
-    "typescript-eslint": "8.62.0"
+    "typescript-eslint": "8.62.1"
   }
 }
