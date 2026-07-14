@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { bootstrapLinkedin } from '@ng-icons/bootstrap-icons';
 import { TranslationService } from '../../../core/services/translation.service';
@@ -15,4 +15,5 @@ import { LanguageToggleComponent } from '../language-toggle/language-toggle.comp
 })
 export class HeaderComponent {
   readonly translation = inject(TranslationService);
+  showProjects = input(false);
 }

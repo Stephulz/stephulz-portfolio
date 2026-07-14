@@ -18,6 +18,7 @@ export interface Translation {
   };
   nav: {
     experience: string;
+    projects: string;
     about: string;
     contact: string;
   };

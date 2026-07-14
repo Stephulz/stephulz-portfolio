@@ -14,6 +14,7 @@ export const EN = {
     backToTop: 'Back to top'
   },
   nav: {
+    projects: 'Personal Projects',
     experience: 'Work Experience',
     about: 'About',
     contact: 'Contact',
