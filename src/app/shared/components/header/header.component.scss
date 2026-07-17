@@ -37,6 +37,7 @@
   }
 }
 
+/* --- Desktop Navigation --- */
 .nav-links {
   display: flex;
   align-items: center;
@@ -60,6 +61,7 @@
   }
 }
 
+/* --- Header Controls --- */
 .header-controls {
   display: flex;
   align-items: center;
@@ -81,5 +83,21 @@
   &:hover {
     color: #0a66c2;
     background: var(--hover-bg);
+  }
+}
+
+/* --- Responsive --- */
+@media (max-width: 767px) {
+  .nav-links {
+    display: none;
+  }
+
+
+  .header-controls {
+    gap: 4px;
+  }
+
+  .desktop {
+    display: none;
   }
 }

@@ -1,0 +1,166 @@
+/* --- Hamburger Button --- */
+.hamburger-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition:
+    color var(--theme-transition),
+    background var(--theme-transition);
+
+  &:hover {
+    color: var(--text-primary);
+    background: var(--hover-bg);
+  }
+}
+
+/* --- Mobile Menu Overlay --- */
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  top: 64px;
+  z-index: 99;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease;
+
+  &.is-closing {
+    animation: fadeOut 0.25s ease forwards;
+  }
+}
+
+.mobile-menu {
+  background: var(--surface-bg);
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 24px 24px;
+  animation: slideDown 0.25s ease;
+  transition:
+    background var(--theme-transition),
+    border-color var(--theme-transition);
+
+  &.is-closing {
+    animation: slideUp 0.25s ease forwards;
+  }
+}
+
+/* --- Navigation --- */
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+
+.mobile-nav-link {
+  display: block;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 12px 16px;
+  border-radius: 10px;
+  transition:
+    color var(--theme-transition),
+    background var(--theme-transition);
+
+  &:hover {
+    color: var(--text-primary);
+    background: var(--hover-bg);
+  }
+}
+
+/* --- Controls --- */
+.mobile-controls {
+  display: flex;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+  transition: border-color var(--theme-transition);
+}
+
+.mobile-linkedin-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 10px 16px;
+  border-radius: 10px;
+  transition:
+    color var(--theme-transition),
+    background var(--theme-transition);
+
+  &:hover {
+    color: #0a66c2;
+    background: var(--hover-bg);
+  }
+}
+
+.mobile-toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 16px;
+}
+
+/* --- Entry Animations --- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Exit Animations --- */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+
+/* --- Responsive --- */
+@media (max-width: 767px) {
+  .hamburger-btn {
+    display: flex;
+  }
+}

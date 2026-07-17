@@ -1,0 +1,42 @@
+<!-- Hamburger trigger button -->
+<button class="hamburger-btn" (click)="toggleMenu()"
+  [attr.aria-label]="(menuState() === 'open' || menuState() === 'closing') ? 'Close menu' : 'Open menu'"
+  [attr.aria-expanded]="menuState() !== 'closed'">
+  @if (menuState() === 'open' || menuState() === 'closing') {
+  <ng-icon name="bootstrapX" size="22" />
+  } @else {
+  <ng-icon name="bootstrapList" size="22" />
+  }
+</button>
+
+<!-- Mobile menu overlay -->
+@if (isVisible()) {
+<div class="mobile-overlay" [class.is-closing]="isClosing()" (click)="onOverlayClick()">
+  <div class="mobile-menu" [class.is-closing]="isClosing()" (click)="onMenuClick($event)">
+    <nav class="mobile-nav-links">
+      @if (showProjects()) {
+      <a (click)="onNavClick()" href="#projects" class="mobile-nav-link">{{
+        translation.t().nav.projects
+        }}</a>
+      }
+      <a (click)="onNavClick()" href="#experience" class="mobile-nav-link">{{
+        translation.t().nav.experience
+        }}</a>
+    </nav>
+
+    <div class="mobile-controls">
+      <a href="https://www.linkedin.com/in/stefan-s-aa7654a5/?locale=en_US" target="_blank" rel="noopener noreferrer"
+        class="mobile-linkedin-link" aria-label="LinkedIn">
+        <ng-icon name="bootstrapLinkedin" size="24" />
+        <span>LinkedIn</span>
+      </a>
+      <div class="mobile-toggle-row">
+        <app-language-toggle />
+      </div>
+      <div class="mobile-toggle-row">
+        <app-theme-toggle />
+      </div>
+    </div>
+  </div>
+</div>
+}

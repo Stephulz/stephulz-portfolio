@@ -15,12 +15,21 @@
     </nav>
 
     <div class="header-controls">
-      <a href="https://www.linkedin.com/in/stefan-s-aa7654a5/?locale=en_US" target="_blank" rel="noopener noreferrer"
-        class="linkedin-link" aria-label="LinkedIn">
-        <ng-icon name="bootstrapLinkedin" size="20" />
-      </a>
-      <app-language-toggle />
-      <app-theme-toggle />
+      <app-mobile-menu [showProjects]="showProjects()" />
+
+      <div class="desktop header-controls">
+        <a
+          href="https://www.linkedin.com/in/stefan-s-aa7654a5/?locale=en_US"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="linkedin-link"
+          aria-label="LinkedIn"
+        >
+          <ng-icon name="bootstrapLinkedin" size="20" />
+        </a>
+        <app-language-toggle />
+        <app-theme-toggle />
+      </div>
     </div>
   </div>
 </header>
