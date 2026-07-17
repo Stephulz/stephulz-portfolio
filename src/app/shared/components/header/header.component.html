@@ -1,20 +1,22 @@
 <header class="header">
   <div class="header-inner">
+
     <a href="#home" class="logo">Stefan</a>
+
     <nav class="nav-links">
+      @if (showProjects()) {
+      <a href="#projects" class="nav-link">{{
+        translation.t().nav.projects
+        }}</a>
+      }
       <a href="#experience" class="nav-link">{{
         translation.t().nav.experience
-      }}</a>
+        }}</a>
     </nav>
 
     <div class="header-controls">
-      <a
-        href="https://www.linkedin.com/in/stefan-s-aa7654a5/?locale=en_US"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="linkedin-link"
-        aria-label="LinkedIn"
-      >
+      <a href="https://www.linkedin.com/in/stefan-s-aa7654a5/?locale=en_US" target="_blank" rel="noopener noreferrer"
+        class="linkedin-link" aria-label="LinkedIn">
         <ng-icon name="bootstrapLinkedin" size="20" />
       </a>
       <app-language-toggle />

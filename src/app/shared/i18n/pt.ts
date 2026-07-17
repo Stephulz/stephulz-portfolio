@@ -14,6 +14,7 @@ export const PT = {
     backToTop: 'Voltar ao topo'
   },
   nav: {
+    projects: 'Projetos Pessoais',
     experience: 'Trajetória Profissional',
     about: 'Sobre',
     contact: 'Contato',
