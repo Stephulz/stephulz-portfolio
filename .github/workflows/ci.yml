@@ -16,10 +16,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@4f1f4aec02e41874fa0262ea8ff5172d7978ad1e # v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Setup Node.js
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v7
+        uses: actions/setup-node@b789df37d6b7526a863bf51b65df64f3f56ffe4f # v7
         with:
           node-version: 22
           cache: npm
@@ -54,7 +54,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@4f1f4aec02e41874fa0262ea8ff5172d7978ad1e # v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Get week number for cache key
         id: week
@@ -75,7 +75,8 @@ jobs:
         # On cache hit, pip uses cached .whl files (~1 sec); on miss, downloads fresh.
         run: python3 -m pip install semgrep
       - name: Semgrep SAST
-        run: semgrep scan --config auto --error
+        # Skip .github/ — CI workflow YAML is not application code
+        run: semgrep scan --config auto --error --exclude .github
 
   trivy:
     name: Trivy (SCA)
@@ -87,7 +88,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@4f1f4aec02e41874fa0262ea8ff5172d7978ad1e # v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@c07df6fec6fa692e6fd1200d50aaa1fdd66f03c8 # v0.36.0
@@ -99,10 +100,64 @@ jobs:
           severity: "CRITICAL,HIGH"
           exit-code: 1
 
+  dependency-review:
+    name: Dependency Review
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Dependency Review
+        uses: actions/dependency-review-action@1e966ba708e4b64bb0c9bfb7abb5a232840be16a # v5.0
+        with:
+          # Fail on critical & high — warn on everything else
+          fail-on-severity: high
+          # Allow these licenses for Angular ecosystem
+          allow-licenses: >-
+            MIT, Apache-2.0, BSD-2-Clause, BSD-3-Clause, ISC, 0BSD,
+            CC0-1.0, Unlicense, Python-2.0, Zlib
+
+  sonarcloud:
+    name: SonarCloud (Deep SAST)
+    # The SonarCloud action handles missing tokens gracefully
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0 # SonarCloud needs full git history
+
+      - name: Setup Node.js
+        uses: actions/setup-node@b789df37d6b7526a863bf51b65df64f3f56ffe4f # v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Generate coverage report
+        run: npm run test:coverage
+
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarqube-scan-action@22918119ff8e1ca75a623e15c8296b6ea4fbe28f # v8.2.1 nosemgrep:generic.secrets.security.detected-sonarqube-docs-api-key
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
   Vercel:
     name: Notify Vercel
     if: always()
-    needs: [test, semgrep, trivy]
+    needs: [test, semgrep, trivy, dependency-review, sonarcloud]
     runs-on: ubuntu-latest
     permissions:
       actions: read

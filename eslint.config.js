@@ -3,6 +3,7 @@ const eslint = require("@eslint/js");
 const { defineConfig } = require("eslint/config");
 const tseslint = require("typescript-eslint");
 const angular = require("angular-eslint");
+const security = require("eslint-plugin-security");
 
 module.exports = defineConfig([
   { ignores: ['coverage/', '.angular/'] },
@@ -19,6 +20,9 @@ module.exports = defineConfig([
       globals: {
         jest: true,
       },
+    },
+    plugins: {
+      security,
     },
     rules: {
       "@angular-eslint/directive-selector": [
@@ -44,6 +48,7 @@ module.exports = defineConfig([
           varsIgnorePattern: "^_",
         },
       ],
+      ...security.configs.recommended.rules,
     },
   },
   {
