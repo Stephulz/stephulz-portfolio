@@ -26,15 +26,16 @@
     "@angular/router": "^22.0.5",
     "@angular/ssr": "^22.0.5",
     "@configcat/sdk": "^1.1.0",
-    "@ng-icons/bootstrap-icons": "^33.3.0",
-    "@ng-icons/boxicons": "^33.3.0",
-    "@ng-icons/core": "^33.3.0",
-    "@ng-icons/devicon": "^33.3.0",
-    "@ng-icons/heroicons": "^33.3.0",
-    "@ng-icons/simple-icons": "^33.3.0",
+    "@ng-icons/bootstrap-icons": "^34.0.0",
+    "@ng-icons/boxicons": "^34.0.0",
+    "@ng-icons/core": "^34.0.0",
+    "@ng-icons/devicon": "^34.0.0",
+    "@ng-icons/heroicons": "^34.0.0",
+    "@ng-icons/simple-icons": "^34.0.0",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "express": "^5.2.1",
+    "fast-uri": "^3.1.4",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.16.2"
@@ -47,7 +48,7 @@
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
     "@types/node": "^26.1.0",
-    "angular-eslint": "22.0.0",
+    "angular-eslint": "22.1.0",
     "eslint": "^10.3.0",
     "eslint-plugin-security": "^4.0.1",
     "husky": "^9.1.7",
@@ -55,6 +56,6 @@
     "jest-environment-jsdom": "^30.4.1",
     "jest-preset-angular": "^17.0.0",
     "typescript": "^6.0.0",
-    "typescript-eslint": "8.62.1"
+    "typescript-eslint": "8.63.0"
   }
 }

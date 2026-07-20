@@ -157,7 +157,7 @@ jobs:
   Vercel:
     name: Notify Vercel
     if: always()
-    needs: [test, semgrep, trivy, dependency-review, sonarcloud]
+    needs: [test, semgrep, trivy, sonarcloud]
     runs-on: ubuntu-latest
     permissions:
       actions: read
