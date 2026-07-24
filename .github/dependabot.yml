@@ -24,3 +24,6 @@ updates:
       all-dependencies:
         patterns:
           - "*"
+    # Add your exclusions here
+    ignore:
+      - dependency-name: "typescript" # angular 22 typescript is 6.0.0
