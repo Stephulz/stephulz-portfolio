@@ -128,8 +128,6 @@ This project follows a formal development constitution centered around the follo
 - 🔴🟢 Test-Driven Development (TDD)
 - 🧪 100% Test Coverage
 
-See [`.specify/memory/constitution.md`](.specify/memory/constitution.md) for the complete specification.
-
 ---
 
 ## 📄 License
