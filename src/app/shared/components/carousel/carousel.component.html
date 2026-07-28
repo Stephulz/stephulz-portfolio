@@ -1,0 +1,70 @@
+<div class="carousel-container" (mouseenter)="pauseAutoPlay()" (mouseleave)="resumeAutoPlay()"
+  (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd($event)">
+  <div class="carousel-track" [style.transform]="'translateX(' + dragOffset() + 'px)'" [class.dragging]="isDragging()">
+    <app-project-card [project]="currentProject" (imageClick)="openZoom()" />
+  </div>
+
+  <!-- Progress bar -->
+  <div class="progress-bar">
+    <div class="progress-fill" [class.paused]="isPaused()" [style.width.%]="progress() * 100"></div>
+  </div>
+
+  <!-- Navigation arrows -->
+  <button class="carousel-arrow carousel-arrow--prev" (click)="prev()" aria-label="Previous project">
+    <ng-icon name="bootstrapChevronLeft" size="26" />
+  </button>
+  <button class="carousel-arrow carousel-arrow--next" (click)="next()" aria-label="Next project">
+    <ng-icon name="bootstrapChevronRight" size="26" />
+  </button>
+
+  <!-- Dots -->
+  <div class="carousel-dots">
+    @for (p of projects(); track p.id; let i = $index) {
+    <button class="carousel-dot" [class.active]="i === currentIndex()" (click)="goToSlide(i)"
+      [attr.aria-label]="'Go to slide ' + (i + 1)"></button>
+    }
+  </div>
+</div>
+
+<!-- Lightbox overlay -->
+@if (isZoomed()) {
+<div class="lightbox-overlay" (click)="onOverlayClick($event)"
+  (touchstart)="onLightboxTouchStart($event)" (touchmove)="onLightboxTouchMove($event)"
+  (touchend)="onLightboxTouchEnd($event)" (mousedown)="onLightboxMouseDown($event)">
+  <figure class="lightbox-figure" [class.zoomed]="zoomLevel() > 1"
+    (dblclick)="onFigureDblClick($event)" (click)="$event.stopPropagation()">
+    <img class="lightbox-image" [class.full-res]="zoomLevel() > 1" [class.no-transition]="isInteracting()" draggable="false"
+      [style.transform]="'translate(' + panX() + 'px, ' + panY() + 'px) scale(' + zoomLevel() + ')'"
+      [src]="themeService.theme() === 'dark' ? currentProject.imageUrlDark : currentProject.imageUrl"
+      alt="Project screenshot enlarged" />
+  </figure>
+
+  <!-- Close button -->
+  <button class="lightbox-close" (click)="closeZoom()" aria-label="Close zoom">
+    <ng-icon name="bootstrapX" size="24" />
+  </button>
+
+  <!-- Zoom controls -->
+  <div class="zoom-controls" (click)="$event.stopPropagation()">
+    <button class="zoom-btn" (click)="zoomOut()" [disabled]="zoomLevel() <= 1" aria-label="Zoom out">
+      <ng-icon name="bootstrapZoomOut" size="20" />
+    </button>
+
+    <input type="range" class="zoom-slider" [min]="1" [max]="5" [step]="0.25"
+      [value]="zoomLevel()" (input)="onSliderInput($event)"
+      aria-label="Zoom level" />
+
+    <button class="zoom-btn" (click)="zoomIn()" [disabled]="zoomLevel() >= 5" aria-label="Zoom in">
+      <ng-icon name="bootstrapZoomIn" size="20" />
+    </button>
+
+    <span class="zoom-label">{{ zoomPercent }}%</span>
+
+    @if (zoomLevel() > 1) {
+    <button class="zoom-btn zoom-btn--reset" (click)="resetZoom()" aria-label="Reset zoom">
+      <ng-icon name="bootstrapX" size="16" />
+    </button>
+    }
+  </div>
+</div>
+}

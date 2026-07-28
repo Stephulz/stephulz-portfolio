@@ -58,9 +58,9 @@ export const EXPERIENCES: Experience[] = [
     period: '2020 - 2021',
     periodPt: '2020 - 2021',
     description:
-      'Designing and maintaining enterprise-scale banking systems. Migrating legacy monoliths to microservices architecture, and ensuring high availability for critical financial applications.',
+      'Developed and maintained full-stack web applications for banking systems management. Integrated cloud services and collaborated with cross-functional teams to deliver features on schedule.',
     descriptionPt:
-      'Construiu aplicações web completas para gerenciamento de sistemas bancários em escala empresarial e migrou monólitos legados para arquitetura de microsserviços, garantindo alta disponibilidade para aplicações financeiras críticas.',
+      'Desenvolveu e manteve aplicações web completas para gerenciamento de sistemas bancários. Integrou serviços em nuvem e colaborou com equipes multifuncionais para entregar funcionalidades no prazo.',
     technologies: ['Java', 'Spring Boot', 'Angular', 'SQL', 'MongoDB', 'AWS'],
   },
   {

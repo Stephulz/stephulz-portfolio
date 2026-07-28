@@ -112,17 +112,17 @@ describe('TimelineComponent', () => {
 
   it('should render company names for each experience', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const companies = compiled.querySelectorAll('.timeline-company');
+    const companies = Array.from(compiled.querySelectorAll('.timeline-company'));
     EXPERIENCES.forEach((exp, index) => {
-      expect(companies[index]?.textContent).toContain(exp.company);
+      expect(companies.at(index)?.textContent).toContain(exp.company);
     });
   });
 
   it('should render role in English by default', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const roles = compiled.querySelectorAll('.timeline-role');
+    const roles = Array.from(compiled.querySelectorAll('.timeline-role'));
     EXPERIENCES.forEach((exp, index) => {
-      expect(roles[index]?.textContent).toContain(exp.role);
+      expect(roles.at(index)?.textContent).toContain(exp.role);
     });
   });
 
@@ -131,17 +131,17 @@ describe('TimelineComponent', () => {
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
-    const roles = compiled.querySelectorAll('.timeline-role');
+    const roles = Array.from(compiled.querySelectorAll('.timeline-role'));
     EXPERIENCES.forEach((exp, index) => {
-      expect(roles[index]?.textContent).toContain(exp.rolePt);
+      expect(roles.at(index)?.textContent).toContain(exp.rolePt);
     });
   });
 
   it('should render period in English by default', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const periods = compiled.querySelectorAll('.timeline-period');
+    const periods = Array.from(compiled.querySelectorAll('.timeline-period'));
     EXPERIENCES.forEach((exp, index) => {
-      expect(periods[index]?.textContent).toContain(exp.period);
+      expect(periods.at(index)?.textContent).toContain(exp.period);
     });
   });
 
@@ -150,18 +150,18 @@ describe('TimelineComponent', () => {
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
-    const periods = compiled.querySelectorAll('.timeline-period');
+    const periods = Array.from(compiled.querySelectorAll('.timeline-period'));
     EXPERIENCES.forEach((exp, index) => {
-      expect(periods[index]?.textContent).toContain(exp.periodPt);
+      expect(periods.at(index)?.textContent).toContain(exp.periodPt);
     });
   });
 
   it('should render tech tags for each experience', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const techTagGroups = compiled.querySelectorAll('.tech-tags');
+    const techTagGroups = Array.from(compiled.querySelectorAll('.tech-tags'));
 
     EXPERIENCES.forEach((exp, index) => {
-      const tags = techTagGroups[index]?.querySelectorAll('.tech-tag');
+      const tags = techTagGroups.at(index)?.querySelectorAll('.tech-tag');
       expect(tags?.length).toBe(exp.technologies.length);
     });
   });

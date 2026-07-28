@@ -39,7 +39,7 @@ export class TranslationService {
 
   setLanguage(lang: Language): void {
     this.currentLang.set(lang);
-    this.t.set(TRANSLATIONS[lang]);
+    this.t.set(lang === 'pt' ? TRANSLATIONS.pt : TRANSLATIONS.en);
 
     if (isPlatformBrowser(this.platformId)) {
       document.documentElement.setAttribute(

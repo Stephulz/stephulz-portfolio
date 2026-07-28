@@ -1,7 +1,7 @@
 import { Component, effect, inject, NgZone, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroArrowUp, heroRectangleStack, heroArrowDown } from '@ng-icons/heroicons/outline';
+import { heroRectangleStack, heroArrowDown, heroArrowUp } from '@ng-icons/heroicons/outline';
 import { bootstrapLinkedin, bootstrapGithub } from '@ng-icons/bootstrap-icons';
 import { simpleGooglemaps } from '@ng-icons/simple-icons';
 import { inject as injectAnalytics } from '@vercel/analytics';
@@ -18,7 +18,7 @@ import { ProjectsComponent } from "./shared/components/projects/projects.compone
   selector: 'app-root',
   standalone: true,
   imports: [HeaderComponent, FooterComponent, TimelineComponent, NgIcon, ProjectsComponent],
-  providers: [provideIcons({ bootstrapLinkedin, bootstrapGithub, simpleGooglemaps, heroArrowUp, heroArrowDown, heroRectangleStack })],
+  providers: [provideIcons({ bootstrapLinkedin, bootstrapGithub, simpleGooglemaps, heroArrowDown, heroRectangleStack, heroArrowUp })],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

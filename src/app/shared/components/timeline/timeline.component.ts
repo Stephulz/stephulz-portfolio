@@ -16,6 +16,7 @@ import {
 import { diSqldeveloperPlain } from '@ng-icons/devicon/plain';
 import { EXPERIENCES } from '../../../core/models/experience.model';
 import { TranslationService } from '../../../core/services/translation.service';
+import { TECH_ICONS } from '../../../core/constants/tech-icons';
 
 @Component({
   selector: 'app-timeline',
@@ -42,15 +43,5 @@ export class TimelineComponent {
   readonly translation = inject(TranslationService);
   readonly experiences = EXPERIENCES;
 
-  readonly iconMap: Record<string, string> = {
-    Java: 'boxJavaLogo',
-    'Spring Boot': 'simpleSpringboot',
-    Angular: 'simpleAngular',
-    React: 'simpleReact',
-    SQL: 'diSqldeveloperPlain',
-    GCP: 'simpleGooglecloud',
-    AWS: 'boxAwsLogo',
-    Azure: 'boxMicrosoftLogo',
-    MongoDB: 'boxMongodbLogo',
-  };
+  readonly iconMap = TECH_ICONS;
 }

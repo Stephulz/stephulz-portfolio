@@ -1,0 +1,47 @@
+@let p = project();
+
+<div class="projects-card">
+  <img
+    class="projects-image"
+    [src]="themeService.theme() === 'dark' ? p.imageUrlDark : p.imageUrl"
+    (click)="imageClick.emit()"
+    alt="Project screenshot"
+  />
+  <div class="projects-description">
+    <h3 class="projects-title">
+      {{ translation.currentLang() === "pt" ? p.titlePt : p.title }}
+    </h3>
+
+    <p class="projects-description-text">
+      {{
+        translation.currentLang() === "pt"
+          ? p.descriptionPt
+          : p.description
+      }}
+    </p>
+
+    <div class="tech-tags">
+      @for (tech of p.technologies; track tech) {
+        <span class="tech-tag">
+          @if (iconMap[tech]) {
+            <ng-icon [name]="iconMap[tech]" size="24" />
+          }
+          {{ tech }}
+        </span>
+      }
+    </div>
+
+    <div class="projects-links">
+      <a class="btn-secondary" [href]="p.gitUrl" target="_blank">
+        <ng-icon name="bootstrapGithub" size="24" />
+        {{ translation.t().projects.viewGitUrl }}
+        <ng-icon name="boxLinkExternal" size="24" />
+      </a>
+      <a class="btn-secondary" [href]="p.archDetails" target="_blank">
+        <ng-icon name="boxInfoCircle" size="24" />
+        {{ translation.t().projects.archDetails }}
+        <ng-icon name="boxLinkExternal" size="24" />
+      </a>
+    </div>
+  </div>
+</div>

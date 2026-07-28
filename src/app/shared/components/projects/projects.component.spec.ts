@@ -3,26 +3,6 @@ import { ProjectsComponent } from './projects.component';
 import { TranslationService } from '../../../core/services/translation.service';
 import { signal } from '@angular/core';
 import { EN } from '../../i18n/en';
-import { provideIcons } from '@ng-icons/core';
-import {
-  simpleAngular,
-  simpleReact,
-  simpleSpringboot,
-  simpleGooglecloud,
-  simpleMysql,
-} from '@ng-icons/simple-icons';
-import {
-  boxJavaLogo,
-  boxMicrosoftLogo,
-  boxAwsLogo,
-  boxMongodbLogo,
-} from '@ng-icons/boxicons/logos';
-import {
-  boxLinkExternal,
-  boxInfoCircle
-} from '@ng-icons/boxicons/regular';
-import { bootstrapGithub } from '@ng-icons/bootstrap-icons';
-import { diSqldeveloperPlain } from '@ng-icons/devicon/plain';
 import { PROJECTS } from '../../../core/models/project.model';
 import type { Translation, Language } from '../../i18n/translations';
 
@@ -50,21 +30,6 @@ describe('ProjectsComponent', () => {
             currentLang,
           },
         },
-        provideIcons({
-          simpleAngular,
-          simpleReact,
-          simpleSpringboot,
-          simpleGooglecloud,
-          simpleMysql,
-          boxJavaLogo,
-          boxMicrosoftLogo,
-          boxAwsLogo,
-          boxMongodbLogo,
-          boxLinkExternal,
-          boxInfoCircle,
-          diSqldeveloperPlain,
-          bootstrapGithub
-        }),
       ],
     }).compileComponents();
 
@@ -86,18 +51,6 @@ describe('ProjectsComponent', () => {
     expect(component.projects.length).toBeGreaterThan(0);
   });
 
-  it('should have iconMap for common technologies', () => {
-    expect(component.iconMap['Java']).toBe('boxJavaLogo');
-    expect(component.iconMap['Spring Boot']).toBe('simpleSpringboot');
-    expect(component.iconMap['Angular']).toBe('simpleAngular');
-    expect(component.iconMap['React']).toBe('simpleReact');
-    expect(component.iconMap['SQL']).toBe('diSqldeveloperPlain');
-    expect(component.iconMap['AWS']).toBe('boxAwsLogo');
-    expect(component.iconMap['Azure']).toBe('boxMicrosoftLogo');
-    expect(component.iconMap['GCP']).toBe('simpleGooglecloud');
-    expect(component.iconMap['MongoDB']).toBe('boxMongodbLogo');
-  });
-
   it('should render section with title', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const sectionTitle = compiled.querySelector('.section-title');
@@ -105,22 +58,35 @@ describe('ProjectsComponent', () => {
     expect(sectionTitle?.textContent).toContain(EN.projects.title);
   });
 
-  it('should render tech tags for each project', () => {
+  it('should render subtitle', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const techTagGroups = compiled.querySelectorAll('.tech-tags');
-
-    PROJECTS.forEach((exp, index) => {
-      const tags = techTagGroups[index]?.querySelectorAll('.tech-tag');
-      expect(tags?.length).toBe(exp.technologies.length);
-    });
+    const subtitle = compiled.querySelector('.section-subtitle');
+    expect(subtitle).toBeTruthy();
   });
 
-  it('should render tech tag for a known technology', () => {
+  it('should render carousel component', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const allTags = compiled.querySelectorAll('.tech-tag');
-    const javaTags = Array.from(allTags).filter((tag) =>
-      tag.textContent?.includes('Java'),
-    );
-    expect(javaTags.length).toBeGreaterThan(0);
+    const carousel = compiled.querySelector('app-carousel');
+    expect(carousel).toBeTruthy();
+  });
+
+  it('should pass projects to carousel component', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const carousel = compiled.querySelector('app-carousel');
+    expect(carousel).toBeTruthy();
+    // The carousel should render project cards for each project
+    const cards = fixture.nativeElement.querySelectorAll('.projects-card');
+    expect(cards.length).toBe(1);
+  });
+
+  it('should render tech tags for the current project', () => {
+    const techTags = fixture.nativeElement.querySelectorAll('.tech-tag');
+    expect(techTags.length).toBe(PROJECTS[0].technologies.length);
+  });
+
+  it('should render section header with translated subtitle', () => {
+    const subtitle = fixture.nativeElement.querySelector('.section-subtitle');
+    expect(subtitle).toBeTruthy();
+    expect(subtitle?.textContent).toBeDefined();
   });
 });

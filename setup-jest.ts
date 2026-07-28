@@ -4,23 +4,23 @@ setupZoneTestEnv();
 
 // Mock localStorage
 if (typeof globalThis.localStorage === 'undefined') {
-  const store: Record<string, string> = {};
+  const store = new Map<string, string>();
   Object.defineProperty(globalThis, 'localStorage', {
     value: {
-      getItem: (key: string) => store[key] ?? null,
+      getItem: (key: string) => store.get(key) ?? null,
       setItem: (key: string, value: string) => {
-        store[key] = value;
+        store.set(key, value);
       },
       removeItem: (key: string) => {
-        delete store[key];
+        store.delete(key);
       },
       clear: () => {
-        Object.keys(store).forEach((key) => delete store[key]);
+        store.clear();
       },
       get length() {
-        return Object.keys(store).length;
+        return store.size;
       },
-      key: (index: number) => Object.keys(store)[index] ?? null,
+      key: (index: number) => Array.from(store.keys()).at(index) ?? null,
     },
     configurable: true,
   });

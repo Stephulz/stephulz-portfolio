@@ -1,0 +1,153 @@
+:host {
+  display: block;
+}
+
+.projects-card {
+  gap: 24px;
+  display: flex;
+  align-items: center;
+  margin: 24px;
+  padding-bottom: 40px;
+  animation: card-fade-in 0.35s ease-out;
+}
+
+@keyframes card-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.projects-image {
+  width: 40vw;
+  max-width: 460px;
+  border-radius: 30px;
+  cursor: zoom-in;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 32px var(--accent-glow);
+  }
+}
+
+.projects-title {
+  font-size: 2.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 10px;
+  line-height: 1.4;
+  transition: color var(--theme-transition);
+}
+
+.projects-description {
+  display: flex;
+  flex-direction: column;
+}
+
+.projects-description-text {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin: 0 0 24px;
+  line-height: 1.7;
+  transition: color var(--theme-transition);
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  max-width: fit-content;
+  margin-bottom: 24px;
+}
+
+.tech-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--surface-bg);
+  border: 1px solid var(--border-color);
+  transition: all var(--theme-transition);
+
+  &:hover {
+    color: var(--text-primary);
+    border-color: var(--accent);
+    background: var(--accent-bg);
+  }
+}
+
+.projects-links {
+  display: flex;
+  gap: 16px;
+}
+
+@media (max-width: 1000px) {
+  .projects-card {
+    flex-direction: column;
+    margin: 16px 0;
+    padding-bottom: 32px;
+  }
+
+  .projects-image {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 24px;
+  }
+
+  .tech-tags {
+    justify-content: center;
+  }
+
+  .projects-description {
+    align-items: center;
+  }
+
+  .projects-links {
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 600px) {
+  .projects-card {
+    margin: 8px 0;
+    padding-bottom: 24px;
+    gap: 16px;
+  }
+
+  .projects-image {
+    border-radius: 16px;
+  }
+
+  .projects-title {
+    font-size: 1.5rem;
+  }
+
+  .projects-description-text {
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+  }
+
+  .tech-tags {
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .projects-links {
+    gap: 10px;
+  }
+
+  .tech-tag {
+    font-size: 0.75rem;
+    padding: 3px 10px;
+  }
+}

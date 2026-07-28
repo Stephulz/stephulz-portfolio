@@ -4,27 +4,25 @@
     <a href="#home" class="logo">Stefan</a>
 
     <nav class="nav-links">
+      <a href="#experience" class="nav-link">{{
+        translation.t().nav.experience
+        }}
+      </a>
+
       @if (showProjects()) {
       <a href="#projects" class="nav-link">{{
         translation.t().nav.projects
-        }}</a>
+        }}
+      </a>
       }
-      <a href="#experience" class="nav-link">{{
-        translation.t().nav.experience
-        }}</a>
     </nav>
 
     <div class="header-controls">
       <app-mobile-menu [showProjects]="showProjects()" />
 
       <div class="desktop header-controls">
-        <a
-          href="https://www.linkedin.com/in/stefan-s-aa7654a5/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="linkedin-link"
-          aria-label="LinkedIn"
-        >
+        <a href="https://www.linkedin.com/in/stefan-s-aa7654a5/" target="_blank" rel="noopener noreferrer"
+          class="linkedin-link" aria-label="LinkedIn">
           <ng-icon name="bootstrapLinkedin" size="20" />
         </a>
         <app-language-toggle />

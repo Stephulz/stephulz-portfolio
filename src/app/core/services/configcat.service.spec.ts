@@ -64,8 +64,7 @@ describe('ConfigCatService', () => {
         };
         (getClient as jest.Mock).mockReturnValue(mockClient);
 
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const service = new ConfigCatService();
+        const _service = new ConfigCatService();
 
         expect(createConsoleLogger).toHaveBeenCalledWith(2); // LogLevel.Warn = 2
     });

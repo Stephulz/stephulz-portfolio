@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MobileMenuComponent } from './mobile-menu.component';
 import { TranslationService } from '../../../core/services/translation.service';
-import { signal, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { signal, CUSTOM_ELEMENTS_SCHEMA, PLATFORM_ID } from '@angular/core';
 import { EN } from '../../i18n/en';
 import { provideIcons } from '@ng-icons/core';
 import { bootstrapLinkedin, bootstrapList, bootstrapX } from '@ng-icons/bootstrap-icons';
@@ -284,7 +284,11 @@ describe('MobileMenuComponent', () => {
     Object.defineProperty(window, 'innerWidth', { value: originalInnerWidth, configurable: true });
   });
 
-  it('should fully close after animation timeout', () => {
+  it('should call ngOnDestroy without errors', () => {
+    expect(() => fixture.destroy()).not.toThrow();
+  });
+
+  it('should still fully close after animation timeout', () => {
     component.toggleMenu();
     fixture.detectChanges();
     expect(component.menuState()).toBe('open');
@@ -347,5 +351,80 @@ describe('MobileMenuComponent', () => {
 
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('app-theme-toggle')).toBeTruthy();
+  });
+
+  describe('edge cases', () => {
+    it('should do nothing when closeMenu() is called while closed', () => {
+      component.closeMenu();
+      expect(component.menuState()).toBe('closed');
+    });
+
+    it('should do nothing when closeMenu() is called while closing', () => {
+      component.toggleMenu();
+      fixture.detectChanges();
+      component.closeMenu();
+      // Already closing, calling again should not change state
+      component.closeMenu();
+      expect(component.menuState()).toBe('closing');
+    });
+
+    it('should do nothing on escape when not open', () => {
+      component.onEscapePress();
+      expect(component.menuState()).toBe('closed');
+    });
+
+    it('should do nothing on escape when closing', () => {
+      component.toggleMenu();
+      fixture.detectChanges();
+      component.closeMenu();
+      component.onEscapePress();
+      expect(component.menuState()).toBe('closing');
+    });
+  });
+});
+
+describe('MobileMenuComponent in SSR', () => {
+  let fixture: ComponentFixture<MobileMenuComponent>;
+  let component: MobileMenuComponent;
+
+  beforeEach(async () => {
+    const tSignal = signal<Translation>(EN);
+
+    await TestBed.configureTestingModule({
+      imports: [MobileMenuComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      providers: [
+        { provide: PLATFORM_ID, useValue: 'server' },
+        {
+          provide: TranslationService,
+          useValue: {
+            t: tSignal as unknown as TranslationService['t'],
+            currentLang: signal<Language>('en'),
+            setLanguage: jest.fn(),
+            toggle: jest.fn(),
+          },
+        },
+        provideIcons({ bootstrapLinkedin, bootstrapList, bootstrapX }),
+      ],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(MobileMenuComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should early-return from toggleBodyScroll without error', () => {
+    component.toggleMenu();
+    fixture.detectChanges();
+    expect(component.menuState()).toBe('open');
+  });
+
+  it('should early-return from unlockBodyScroll without error', () => {
+    expect(() => fixture.destroy()).not.toThrow();
+  });
+
+  it('should early-return on resize without error', () => {
+    window.dispatchEvent(new Event('resize'));
+    expect(component.menuState()).toBe('closed');
   });
 });

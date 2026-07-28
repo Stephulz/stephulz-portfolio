@@ -3,6 +3,8 @@
   padding-bottom: 48px;
   max-width: 800px;
   margin: 0 auto;
+  min-height: calc(100dvh - 64px);
+  scroll-snap-align: start;
 }
 
 .section-header {

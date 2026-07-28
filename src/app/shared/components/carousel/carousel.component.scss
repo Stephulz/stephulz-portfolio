@@ -1,0 +1,423 @@
+/* ─── Carousel ─── */
+
+.carousel-container {
+  position: relative;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.carousel-track {
+  overflow: hidden;
+  will-change: transform;
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  &.dragging {
+    transition: none;
+  }
+}
+
+/* ─── Progress bar ─── */
+
+.progress-bar {
+  width: calc(100% - 48px);
+  height: 4px;
+  margin: 0 auto 16px;
+  background: var(--border-color);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-glow));
+  border-radius: 2px;
+  transition: width 50ms linear;
+}
+
+/* ─── Navigation arrows ─── */
+
+.carousel-arrow {
+  position: absolute;
+  top: 35%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background: var(--surface-bg);
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 2;
+
+  &:hover {
+    border-color: var(--accent);
+    background: var(--accent-bg);
+    color: var(--accent);
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+}
+
+.carousel-arrow--prev {
+  left: -40px;
+}
+
+.carousel-arrow--next {
+  right: -40px;
+}
+
+/* ─── Dots ─── */
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background: var(--surface-bg);
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: var(--accent);
+    background: var(--accent-bg);
+    transform: scale(1.2);
+  }
+
+  &.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: scale(1.2);
+  }
+}
+
+/* ─── Lightbox ─── */
+
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  animation: fade-in 0.2s ease;
+  cursor: zoom-out;
+}
+
+.lightbox-figure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: hidden;
+  border-radius: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+
+  &.zoomed {
+    cursor: grab;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+}
+
+.lightbox-image {
+  max-width: 90vw;
+  max-height: 85vh;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  cursor: default;
+  animation: scale-in 0.25s ease;
+  transition: transform 0.25s cubic-bezier(0.34, 0.7, 0.64, 1);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-origin: center center;
+  touch-action: none;
+  pointer-events: none;
+
+  /* When zoomed, remove resolution cap so the image renders at full natural size */
+  &.full-res {
+    max-width: none;
+    max-height: none;
+  }
+
+  /* During drag/pinch transitions are disabled so the image follows the cursor */
+  &.no-transition {
+    transition: none;
+  }
+}
+
+.lightbox-close {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+  z-index: 1001;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* ─── Zoom controls bar ─── */
+
+.zoom-controls {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border-radius: 40px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  z-index: 1001;
+  animation: fade-in 0.25s ease 0.1s both;
+}
+
+.zoom-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, opacity 0.2s ease;
+  flex-shrink: 0;
+
+  &:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.92);
+  }
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  &--reset {
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 80, 80, 0.2);
+
+    &:hover {
+      background: rgba(255, 80, 80, 0.4);
+    }
+  }
+}
+
+/* ─── Zoom slider (range input) ─── */
+
+.zoom-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 120px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  outline: none;
+  cursor: pointer;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  &::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 4px;
+  }
+}
+
+.zoom-label {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.8rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  min-width: 42px;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ─── Responsive ─── */
+
+@media (max-width: 1000px) {
+  .carousel-arrow {
+    width: 36px;
+    height: 36px;
+    top: 25%;
+  }
+
+  .carousel-arrow--prev {
+    left: 4px;
+  }
+
+  .carousel-arrow--next {
+    right: 4px;
+  }
+
+  .zoom-slider {
+    width: 80px;
+  }
+
+  .zoom-controls {
+    bottom: 24px;
+    padding: 8px 14px;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  .progress-bar {
+    width: calc(100% - 16px);
+    margin: 0 auto 12px;
+  }
+
+  .carousel-arrow {
+    width: 32px;
+    height: 32px;
+    top: 20%;
+  }
+
+  .carousel-arrow--prev {
+    left: 2px;
+  }
+
+  .carousel-arrow--next {
+    right: 2px;
+  }
+
+  .carousel-dots {
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .carousel-dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .lightbox-image {
+    max-width: 95vw;
+    max-height: 80vh;
+    border-radius: 12px;
+  }
+
+  .lightbox-figure {
+    border-radius: 12px;
+  }
+
+  .lightbox-close {
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .zoom-controls {
+    bottom: 16px;
+    padding: 6px 12px;
+    gap: 6px;
+    border-radius: 32px;
+  }
+
+  .zoom-btn {
+    width: 32px;
+    height: 32px;
+
+    &--reset {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .zoom-slider {
+    width: 64px;
+  }
+
+  .zoom-label {
+    font-size: 0.72rem;
+    min-width: 36px;
+  }
+}
