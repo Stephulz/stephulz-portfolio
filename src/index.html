@@ -19,6 +19,20 @@
     content="Building scalable, high-performance applications with Java, Angular and cloud technologies." />
   <meta property="og:type" content="website" />
 
+  <!-- ── Synchronous theme injection (prevents flash of wrong theme) ── -->
+  <script>
+    (function () {
+      try {
+        var theme = localStorage.getItem('portfolio-theme');
+        if (theme === 'light' || theme === 'dark') {
+          document.documentElement.setAttribute('data-theme', theme);
+        }
+      } catch (e) {
+        // localStorage unavailable — tag default applies
+      }
+    })();
+  </script>
+
   <!-- Pre-boot CSS (critical — ahead of fonts for immediate rendering) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

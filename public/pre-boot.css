@@ -1,8 +1,71 @@
-#pre-boot-skeleton{position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;background:#0a0a0f;transition:opacity .35s ease;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
-#pre-boot-skeleton.hidden{opacity:0;pointer-events:none}
-.pre-boot-spinner{position:relative;width:48px;height:48px}
-.pre-boot-ring{position:absolute;inset:0;border-radius:50%;border:3px solid transparent;border-top-color:#6c5ce7;animation:pre-spin 1s cubic-bezier(.5,0,.5,1) infinite}
-.pre-boot-ring--inner{inset:6px;border-top-color:#a0a0b8;animation-duration:.75s;animation-direction:reverse}
-.pre-boot-text{font-size:.85rem;color:#a0a0b8;font-weight:500;letter-spacing:.04em;animation:pre-pulse 1.5s ease-in-out infinite}
-@keyframes pre-spin{to{transform:rotate(360deg)}}
-@keyframes pre-pulse{0%,100%{opacity:.5}50%{opacity:1}}
+/* ─── Theme-aware pre-bootstrap skeleton ─────────────────────── */
+/* Dark theme (default) */
+#pre-boot-skeleton {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background: #0a0a0f;
+  transition: opacity 0.35s ease;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Light theme override — applied synchronously before painting */
+[data-theme='light'] #pre-boot-skeleton {
+  background: #f8f8fc;
+}
+
+#pre-boot-skeleton.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pre-boot-spinner {
+  position: relative;
+  width: 48px;
+  height: 48px;
+}
+
+.pre-boot-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #6c5ce7;
+  animation: pre-spin 1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+.pre-boot-ring--inner {
+  inset: 6px;
+  border-top-color: #a0a0b8;
+  animation-duration: 0.75s;
+  animation-direction: reverse;
+}
+
+.pre-boot-text {
+  font-size: 0.85rem;
+  color: #a0a0b8;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  animation: pre-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pre-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pre-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
