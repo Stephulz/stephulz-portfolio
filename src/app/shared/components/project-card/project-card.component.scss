@@ -88,6 +88,12 @@
 .projects-links {
   display: flex;
   gap: 16px;
+
+  .btn-secondary {
+    ng-icon {
+      display: inline-table;
+    }
+  }
 }
 
 @media (max-width: 1000px) {
