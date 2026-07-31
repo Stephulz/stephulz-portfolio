@@ -2,9 +2,9 @@
 
 [![Node](https://img.shields.io/badge/Node-22-339933?logo=node.js&logoColor=white)](https://nodejs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-[![codecov](https://codecov.io/github/Stephulz/stephulz-portfolio/graph/badge.svg?token=QMPUD6RU8G)](https://codecov.io/github/Stephulz/stephulz-portfolio)
 [![CI](https://github.com/Stephulz/stephulz-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/Stephulz/stephulz-portfolio/actions/workflows/ci.yml)
-[![Quality gate status](https://sonarcloud.io/api/project_badges/measure?project=Stephulz_stephulz-portfolio&metric=alert_status&token=9b1d6858f97188f232e817c7c490e5e743c5ad93)](https://sonarcloud.io/summary/new_code?id=Stephulz_stephulz-portfolio)
+[![codecov](https://codecov.io/github/Stephulz/stephulz-portfolio/graph/badge.svg)](https://codecov.io/github/Stephulz/stephulz-portfolio)
+[![Quality gate status](https://sonarcloud.io/api/project_badges/measure?project=Stephulz_stephulz-portfolio&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Stephulz_stephulz-portfolio)
 [![Vercel](https://img.shields.io/badge/Vercel-Deployed-000000?logo=vercel&logoColor=white)](https://stephulz-portfolio.vercel.app/)
 
 Portfolio built with **Angular 22**, **TypeScript 6**, **SCSS**, and **Jest**. Designed with performance, accessibility, security, and maintainability in mind, and deployed on **Vercel**.
@@ -45,7 +45,7 @@ Portfolio built with **Angular 22**, **TypeScript 6**, **SCSS**, and **Jest**. D
 | 🎭 Styling | SCSS + CSS Custom Properties |
 | 🧪 Testing | Jest + jsdom |
 | 🔍 Linting | Angular ESLint |
-| 🔒 Security | Semgrep (SAST), Trivy (Dependency Scanning) |
+| 🔒 Security | Semgrep (SAST), Trivy (Dependency Scanning), Gitleaks (Secrets) |
 | 🔄 CI/CD | GitHub Actions |
 | 🌐 Hosting | Vercel |
 | 🎛️ Feature Flags | ConfigCat |
@@ -113,6 +113,7 @@ Every push and pull request targeting `main` executes the following workflow:
 | ✅ Lint | Angular ESLint |
 | 🧪 Test | Jest with **100% coverage enforcement** |
 | 🔒 SAST | Semgrep security analysis |
+| 🕵️ Secret Scan | Gitleaks secrets detection |
 | 🛡️ Dependency Scan | Trivy vulnerability scan |
 | 🏗️ Build | Production Angular build |
 
@@ -127,6 +128,7 @@ This project follows a formal development constitution centered around the follo
 - 🎨 SCSS-first styling
 - 🔴🟢 Test-Driven Development (TDD)
 - 🧪 100% Test Coverage
+- 🔒 **Gitleaks required to commit** — the pre-commit hook refuses to commit without it. Install locally with `scoop install gitleaks` (Windows) or `brew install gitleaks` (macOS), or grab a binary from the [gitleaks releases](https://github.com/gitleaks/gitleaks/releases); CI enforces the same scan on every push/PR.
 
 ---
 

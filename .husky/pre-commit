@@ -1,1 +1,12 @@
+# Detect hardcoded secrets in staged changes before they reach the repo.
+# gitleaks is required — refuse to commit without it so secrets can't slip through.
+if command -v gitleaks >/dev/null 2>&1; then
+  # Block the commit if a secret is detected — don't let npm test mask the failure.
+  gitleaks git --pre-commit --redact --staged --verbose || exit $?
+else
+  echo "[gitleaks] not installed — commit blocked. Install gitleaks and try again."
+  echo "[gitleaks] Install: scoop install gitleaks   (or https://github.com/gitleaks/gitleaks/releases)"
+  exit 1
+fi
+
 npm test

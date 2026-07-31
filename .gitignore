@@ -45,3 +45,6 @@ Thumbs.db
 
 # generated env
 src/app/env.ts
+
+# gitleaks reports
+/gitleaks-report.*
