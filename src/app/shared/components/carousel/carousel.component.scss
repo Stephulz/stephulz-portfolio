@@ -176,7 +176,7 @@
   height: 44px;
   border-radius: 50%;
   border: none;
-  background: rgba(255, 255, 255, 0.15);
+  background: #2a2a36;
   color: #fff;
   cursor: pointer;
   display: flex;
@@ -186,7 +186,7 @@
   z-index: 1001;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: #3a3a4a;
   }
 }
 
@@ -214,7 +214,7 @@
   height: 36px;
   border-radius: 50%;
   border: none;
-  background: rgba(255, 255, 255, 0.08);
+  background: #2a2a36;
   color: #fff;
   cursor: pointer;
   display: flex;
@@ -224,7 +224,7 @@
   flex-shrink: 0;
 
   &:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.2);
+    background: #3a3a4a;
   }
 
   &:active:not(:disabled) {
@@ -239,10 +239,10 @@
   &--reset {
     width: 28px;
     height: 28px;
-    background: rgba(255, 80, 80, 0.2);
+    background: #4a1f1f;
 
     &:hover {
-      background: rgba(255, 80, 80, 0.4);
+      background: #5e2a2a;
     }
   }
 }

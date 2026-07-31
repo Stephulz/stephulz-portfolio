@@ -201,8 +201,8 @@ export class CarouselComponent implements OnDestroy {
   }
 
   onSliderInput(event: Event): void {
-    const value = parseFloat((event.target as HTMLInputElement).value);
-    if (!isNaN(value)) {
+    const value = Number.parseFloat((event.target as HTMLInputElement).value);
+    if (!Number.isNaN(value)) {
       this.setZoom(value);
     }
   }
@@ -341,7 +341,7 @@ export class CarouselComponent implements OnDestroy {
     const t = event.touches;
     const dx = t[0].clientX - t[1].clientX;
     const dy = t[0].clientY - t[1].clientY;
-    return Math.sqrt(dx * dx + dy * dy);
+    return Math.hypot(dx, dy);
   }
 
   // ── Mouse pan (zoom > 1) ──────────────────────────────────────
