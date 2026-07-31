@@ -380,6 +380,39 @@ describe('MobileMenuComponent', () => {
       component.onEscapePress();
       expect(component.menuState()).toBe('closing');
     });
+
+    it('should lock body scroll via menu state when force is not provided', () => {
+      component.menuState.set('open');
+      document.body.style.overflow = '';
+
+      const privateApi = component as unknown as {
+        toggleBodyScroll: (force?: boolean) => void;
+      };
+      privateApi.toggleBodyScroll();
+
+      expect(document.body.style.overflow).toBe('hidden');
+    });
+
+    it('should unlock body scroll when menu is not open and force is not provided', () => {
+      document.body.style.overflow = 'hidden';
+
+      const privateApi = component as unknown as {
+        toggleBodyScroll: (force?: boolean) => void;
+      };
+      privateApi.toggleBodyScroll();
+
+      expect(document.body.style.overflow).toBe('');
+    });
+
+    it('should fall through gracefully when toggling from an unknown state', () => {
+      const setter = component.menuState as unknown as {
+        set: (value: string) => void;
+      };
+      setter.set('unknown');
+
+      expect(() => component.toggleMenu()).not.toThrow();
+      expect(component.menuState()).toBe('unknown');
+    });
   });
 });
 

@@ -809,6 +809,76 @@ describe('CarouselComponent', () => {
     });
   });
 
+  describe('recalcPanBounds with mocked DOM', () => {
+    function mockLightboxDom(overrides?: {
+      offsetWidth?: number;
+      offsetHeight?: number;
+      naturalWidth?: number;
+      naturalHeight?: number;
+    }) {
+      const figure = {
+        offsetWidth: overrides?.offsetWidth ?? 500,
+        offsetHeight: overrides?.offsetHeight ?? 400,
+      } as HTMLElement;
+      const img = {
+        naturalWidth: overrides?.naturalWidth ?? 1000,
+        naturalHeight: overrides?.naturalHeight ?? 800,
+      } as HTMLImageElement;
+      return jest.spyOn(document, 'querySelector').mockImplementation(
+        (selector: string) => {
+          if (selector === '.lightbox-figure') {
+            return figure as unknown as Element;
+          }
+          if (selector === '.lightbox-image') {
+            return img as unknown as Element;
+          }
+          return null;
+        },
+      );
+    }
+
+    it('should compute and cache pan bounds from the DOM when zoomed in', () => {
+      mockLightboxDom();
+      component.setZoom(2);
+      const privateApi = component as unknown as {
+        cachedMaxPanX: number;
+        cachedMaxPanY: number;
+      };
+      // (1000 * 2 - 500) / (2 * 2) = 375, (800 * 2 - 400) / (2 * 2) = 300
+      expect(privateApi.cachedMaxPanX).toBe(375);
+      expect(privateApi.cachedMaxPanY).toBe(300);
+    });
+
+    it('should early-return when the image has no natural dimensions', () => {
+      mockLightboxDom({ naturalWidth: 0, naturalHeight: 0 });
+      component.setZoom(2);
+      const privateApi = component as unknown as {
+        cachedMaxPanX: number;
+        cachedMaxPanY: number;
+      };
+      expect(privateApi.cachedMaxPanX).toBe(0);
+      expect(privateApi.cachedMaxPanY).toBe(0);
+    });
+
+    it('should clamp pan to recomputed bounds when none were cached', () => {
+      // Zoom in without a DOM — recalc early-returns, bounds stay 0
+      component.setZoom(2);
+      const privateApi = component as unknown as {
+        cachedMaxPanX: number;
+        cachedMaxPanY: number;
+      };
+      expect(privateApi.cachedMaxPanX).toBe(0);
+
+      mockLightboxDom();
+      component.panX.set(1000);
+      component.panY.set(1000);
+      component.clampPan();
+
+      expect(component.panX()).toBe(375);
+      expect(component.panY()).toBe(300);
+    });
+  });
+
   describe('touch pinch-to-zoom', () => {
     function twoFingerTouchEvent(
       x1: number, y1: number,
@@ -855,6 +925,12 @@ describe('CarouselComponent', () => {
       expect(component.isPanning()).toBe(false);
       expect(component.isInteracting()).toBe(false);
     });
+
+    it('should ignore two-finger touch move without a prior pinch start', () => {
+      component.onLightboxTouchMove(twoFingerTouchEvent(100, 100, 250, 100));
+      expect(component.zoomLevel()).toBe(1);
+      expect(component.isPanning()).toBe(false);
+    });
   });
 
   describe('touch pan when zoomed', () => {
@@ -895,8 +971,12 @@ describe('CarouselComponent', () => {
   describe('zoom edge cases', () => {
     it('should not zoom on wheel when not zoomed', () => {
       const spy = jest.spyOn(component, 'zoomIn');
-      document.dispatchEvent(new WheelEvent('wheel', { deltaY: -100 }));
+      // Dispatch on the host element so the @HostListener actually fires
+      fixture.nativeElement.dispatchEvent(
+        new WheelEvent('wheel', { deltaY: -100, bubbles: true }),
+      );
       expect(spy).not.toHaveBeenCalled();
+      expect(component.zoomLevel()).toBe(1);
       spy.mockRestore();
     });
 
@@ -904,9 +984,15 @@ describe('CarouselComponent', () => {
       component.isZoomed.set(true);
       fixture.detectChanges();
       const spy = jest.spyOn(component, 'zoomIn');
-      // Dispatch wheel on document body (outside overlay)
-      document.body.dispatchEvent(new WheelEvent('wheel', { deltaY: -100, bubbles: true }));
+      // Dispatch on an element inside the host but outside the lightbox overlay
+      const arrow = fixture.nativeElement.querySelector(
+        '.carousel-arrow--next',
+      ) as HTMLElement;
+      arrow.dispatchEvent(
+        new WheelEvent('wheel', { deltaY: -100, bubbles: true }),
+      );
       expect(spy).not.toHaveBeenCalled();
+      expect(component.zoomLevel()).toBe(1);
       spy.mockRestore();
     });
 
@@ -966,6 +1052,50 @@ describe('CarouselComponent', () => {
       component.onFigureDblClick(event);
 
       expect(component.zoomLevel()).toBe(1);
+    });
+
+    it('should ignore lightbox touch start when not zoomed', () => {
+      const preventDefault = jest.fn();
+      const event = {
+        touches: [
+          { clientX: 100, clientY: 100 },
+          { clientX: 200, clientY: 100 },
+        ] as unknown as TouchList,
+        preventDefault,
+      } as unknown as TouchEvent;
+      component.onLightboxTouchStart(event);
+      expect(component.isInteracting()).toBe(false);
+      expect(preventDefault).not.toHaveBeenCalled();
+    });
+
+    it('should ignore lightbox touch move when not zoomed', () => {
+      const event = {
+        touches: [
+          { clientX: 100, clientY: 100 },
+          { clientX: 200, clientY: 100 },
+        ] as unknown as TouchList,
+        preventDefault: jest.fn(),
+      } as unknown as TouchEvent;
+      component.onLightboxTouchMove(event);
+      expect(component.zoomLevel()).toBe(1);
+    });
+
+    it('should ignore lightbox mousedown when not zoomed', () => {
+      component.onLightboxMouseDown(
+        new MouseEvent('mousedown', { clientX: 100, clientY: 50 }),
+      );
+      expect(component.isPanning()).toBe(false);
+      expect(component.isInteracting()).toBe(false);
+    });
+
+    it('should ignore document mousemove when not panning', () => {
+      component.panX.set(100);
+      component.panY.set(40);
+      document.dispatchEvent(
+        new MouseEvent('mousemove', { clientX: 150, clientY: 70 }),
+      );
+      expect(component.panX()).toBe(100);
+      expect(component.panY()).toBe(40);
     });
   });
 
