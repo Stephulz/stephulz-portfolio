@@ -3,8 +3,8 @@
 [![Node](https://img.shields.io/badge/Node-22-339933?logo=node.js&logoColor=white)](https://nodejs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![CI](https://github.com/Stephulz/stephulz-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/Stephulz/stephulz-portfolio/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/github/Stephulz/stephulz-portfolio/graph/badge.svg)](https://codecov.io/github/Stephulz/stephulz-portfolio)
-[![Quality gate status](https://sonarcloud.io/api/project_badges/measure?project=Stephulz_stephulz-portfolio&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Stephulz_stephulz-portfolio)
+[![codecov](https://codecov.io/github/Stephulz/stephulz-portfolio/branch/main/graph/badge.svg?token=QMPUD6RU8G)](https://codecov.io/github/Stephulz/stephulz-portfolio)
+[![Quality gate status](https://sonarcloud.io/api/project_badges/measure?project=Stephulz_stephulz-portfolio&metric=alert_status&token=9b1d6858f97188f232e817c7c490e5e743c5ad93)](https://sonarcloud.io/summary/new_code?id=Stephulz_stephulz-portfolio)
 [![Vercel](https://img.shields.io/badge/Vercel-Deployed-000000?logo=vercel&logoColor=white)](https://stephulz-portfolio.vercel.app/)
 
 Portfolio built with **Angular 22**, **TypeScript 6**, **SCSS**, and **Jest**. Designed with performance, accessibility, security, and maintainability in mind, and deployed on **Vercel**.
