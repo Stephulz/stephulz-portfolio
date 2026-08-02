@@ -18,12 +18,10 @@
 
     <div class="tech-tags">
       @for (tech of p.technologies; track tech) {
-        <span class="tech-tag">
-          @if (iconMap[tech]) {
-            <ng-icon [name]="iconMap[tech]" size="24" />
-          }
-          {{ tech }}
-        </span>
+      <span class="tech-tag">
+        <ng-icon [name]="iconMap[tech]" size="24" />
+        {{ tech }}
+      </span>
       }
     </div>
 

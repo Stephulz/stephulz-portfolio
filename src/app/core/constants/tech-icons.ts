@@ -1,5 +1,5 @@
 /** Map of technology names to ng-icon icon names. */
-export const TECH_ICONS: Record<string, string> = {
+export const TECH_ICONS = {
   Java: 'boxJavaLogo',
   'Spring Boot': 'simpleSpringboot',
   Angular: 'simpleAngular',
@@ -12,4 +12,9 @@ export const TECH_ICONS: Record<string, string> = {
   'Apache Kafka': 'simpleApachekafka',
   PostgreSQL: 'simplePostgresql',
   Docker: 'simpleDocker',
-};
+  Sass: 'simpleSass',
+  Typescript: 'simpleTypescript',
+} satisfies Record<string, string>;
+
+/** Known technology names that have an icon mapped in `TECH_ICONS`. */
+export type Tech = keyof typeof TECH_ICONS;

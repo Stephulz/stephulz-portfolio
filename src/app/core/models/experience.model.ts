@@ -1,3 +1,4 @@
+import { Tech } from '../constants/tech-icons';
 export interface Experience {
   id: number;
   company: string;
@@ -7,7 +8,7 @@ export interface Experience {
   periodPt: string;
   description: string;
   descriptionPt: string;
-  technologies: string[];
+  technologies: Tech[];
 }
 
 export const EXPERIENCES: Experience[] = [
@@ -15,7 +16,7 @@ export const EXPERIENCES: Experience[] = [
     id: 6,
     company: 'Bradesco',
     role: 'Senior Software Engineer',
-    rolePt: 'Engenheiro de Software Sênior ',
+    rolePt: 'Engenheiro de Software Sênior',
     period: '2024 - Present',
     periodPt: '2024 - Presente',
     description:

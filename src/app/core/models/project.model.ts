@@ -1,3 +1,4 @@
+import { Tech } from '../constants/tech-icons';
 export interface Project {
   id: number;
   imageUrl: string;
@@ -6,7 +7,7 @@ export interface Project {
   titlePt: string;
   description: string;
   descriptionPt: string;
-  technologies: string[];
+  technologies: Tech[];
   gitUrl: string;
   archDetails?: string;
   liveDemo?: string;

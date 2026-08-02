@@ -39,9 +39,7 @@
         <div class="tech-tags">
           @for (tech of exp.technologies; track tech) {
           <span class="tech-tag">
-            @if (iconMap[tech]) {
             <ng-icon [name]="iconMap[tech]" size="24" />
-            }
             {{ tech }}
           </span>
           }
