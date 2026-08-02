@@ -289,10 +289,11 @@ describe('CarouselComponent', () => {
       const comp = fix.componentInstance;
       fix.componentRef.setInput('projects', PROJECTS);
       fix.detectChanges();
-      jest.advanceTimersByTime(5000);
-      expect(comp.currentIndex()).toBe(1);
-      jest.advanceTimersByTime(5000);
       expect(comp.currentIndex()).toBe(0);
+      jest.advanceTimersByTime(5000);
+      expect(comp.currentIndex()).toBe(1 % PROJECTS.length);
+      jest.advanceTimersByTime(5000);
+      expect(comp.currentIndex()).toBe(2 % PROJECTS.length);
       jest.useRealTimers();
     });
 
@@ -1114,7 +1115,7 @@ describe('CarouselComponent', () => {
 
   describe('cleanup', () => {
     it('should clear interval on destroy', () => {
-      const clearIntervalSpy = jest.spyOn(global, 'clearInterval');
+      const clearIntervalSpy = jest.spyOn(globalThis, 'clearInterval');
       fixture.destroy();
       expect(clearIntervalSpy).toHaveBeenCalled();
     });
