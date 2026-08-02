@@ -23,7 +23,8 @@ export const PT = {
     title: 'Projetos Pessoais',
     subtitle: '',
     viewGitUrl: 'Veja o código',
-    archDetails: 'Detalhes da Arquitetura'
+    archDetails: 'Detalhes da Arquitetura',
+    liveDemo: 'Acessar'
   },
   experience: {
     title: 'Experiência Profissional',

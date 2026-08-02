@@ -1,12 +1,8 @@
 @let p = project();
 
 <div class="projects-card">
-  <img
-    class="projects-image"
-    [src]="themeService.theme() === 'dark' ? p.imageUrlDark : p.imageUrl"
-    (click)="imageClick.emit()"
-    alt="Project screenshot"
-  />
+  <img class="projects-image" [src]="themeService.theme() === 'dark' ? p.imageUrlDark : p.imageUrl"
+    (click)="imageClick.emit()" alt="Project screenshot" />
   <div class="projects-description">
     <h3 class="projects-title">
       {{ translation.currentLang() === "pt" ? p.titlePt : p.title }}
@@ -14,9 +10,9 @@
 
     <p class="projects-description-text">
       {{
-        translation.currentLang() === "pt"
-          ? p.descriptionPt
-          : p.description
+      translation.currentLang() === "pt"
+      ? p.descriptionPt
+      : p.description
       }}
     </p>
 
@@ -37,11 +33,20 @@
         {{ translation.t().projects.viewGitUrl }}
         <ng-icon name="boxLinkExternal" size="24" />
       </a>
+      @if(p.archDetails){
       <a class="btn-secondary" [href]="p.archDetails" target="_blank">
         <ng-icon name="boxInfoCircle" size="24" />
         {{ translation.t().projects.archDetails }}
         <ng-icon name="boxLinkExternal" size="24" />
       </a>
+      }
+      @if(p.liveDemo){
+      <a class="btn-secondary" [href]="p.liveDemo" target="_blank">
+        <ng-icon name="boxGlobe" size="24" />
+        {{ translation.t().projects.liveDemo }}
+        <ng-icon name="boxLinkExternal" size="24" />
+      </a>
+      }
     </div>
   </div>
 </div>

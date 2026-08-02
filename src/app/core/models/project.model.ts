@@ -8,7 +8,8 @@ export interface Project {
   descriptionPt: string;
   technologies: string[];
   gitUrl: string;
-  archDetails: string;
+  archDetails?: string;
+  liveDemo?: string;
 }
 
 export const PROJECTS: Project[] = [
@@ -35,5 +36,18 @@ export const PROJECTS: Project[] = [
     technologies: ['Java', 'Spring Boot', 'Apache Kafka', 'PostgreSQL', 'MongoDB', 'Docker'],
     gitUrl: 'https://github.com/Stephulz/sales-kafka-saga-choreographed',
     archDetails: 'https://learn.microsoft.com/pt-br/azure/architecture/patterns/saga#choreography'
+  },
+  {
+    id: 3,
+    imageUrl: 'assets/portfolio-dark.png',
+    imageUrlDark: 'assets/portfolio.png',
+    title: 'Portfolio',
+    titlePt: 'Portfólio',
+    description: 'Personal portfolio made with Angular 22 (the one you are accessing)',
+    descriptionPt: 'Portfólio pessoal feito com Angular 22 (este que você está acessando)',
+    technologies: ['Angular', 'Typescript', 'Sass'],
+    gitUrl: 'https://github.com/Stephulz/stephulz-portfolio',
+    archDetails: undefined,
+    liveDemo: 'https://stephulz-portfolio.vercel.app/'
   }
 ];

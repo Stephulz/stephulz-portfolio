@@ -27,6 +27,7 @@ export interface Translation {
     subtitle: string;
     viewGitUrl: string;
     archDetails: string;
+    liveDemo: string;
   };
   experience: {
     title: string;

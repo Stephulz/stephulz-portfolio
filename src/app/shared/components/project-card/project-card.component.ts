@@ -9,6 +9,8 @@ import {
   simpleApachekafka,
   simplePostgresql,
   simpleDocker,
+  simpleTypescript,
+  simpleSass,
 } from '@ng-icons/simple-icons';
 import {
   boxJavaLogo,
@@ -19,6 +21,7 @@ import {
 import {
   boxLinkExternal,
   boxInfoCircle,
+  boxGlobe
 } from '@ng-icons/boxicons/regular';
 import { bootstrapGithub } from '@ng-icons/bootstrap-icons';
 import { diSqldeveloperPlain } from '@ng-icons/devicon/plain';
@@ -41,12 +44,15 @@ import { TECH_ICONS } from '../../../core/constants/tech-icons';
       simpleApachekafka,
       simplePostgresql,
       simpleDocker,
+      simpleTypescript,
+      simpleSass,
       boxJavaLogo,
       boxMicrosoftLogo,
       boxAwsLogo,
       boxMongodbLogo,
       boxLinkExternal,
       boxInfoCircle,
+      boxGlobe,
       diSqldeveloperPlain,
       bootstrapGithub,
     }),

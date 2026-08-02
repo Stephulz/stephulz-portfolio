@@ -23,7 +23,8 @@ export const EN = {
     title: 'Personal Projects',
     subtitle: '',
     viewGitUrl: 'View Code',
-    archDetails: 'Architecture Details'
+    archDetails: 'Architecture Details',
+    liveDemo: 'Live Demo'
   },
   experience: {
     title: 'Work Experience',
