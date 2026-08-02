@@ -31,11 +31,9 @@ jobs:
       - name: Run lint
         run: npm run lint
 
-      - name: Run tests
-        run: npm run test:ci
-
-      - name: Run tests with coverage
-        run: npm run test:coverage
+      # jest --coverage fails the build if the 100% threshold in jest.config.js is not met
+      - name: Run tests (enforces 100% coverage threshold)
+        run: npm run test:ci -- --coverage
       - name: Run build
         run: npm run build
 
